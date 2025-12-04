@@ -27,6 +27,6 @@ class Mentalist(Member) :
         gain = self.mana - ancien_mana
         print(f"{self.name} recharge son mana de {gain} points. (Mana actuel: {self.mana})")
         
-    def display_info(self) :
+    def display_info(self) :                    # permet de voir le mana que la personne possède 
         super().display_info()
         print(f"Mana: {self.mana}")

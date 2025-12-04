@@ -22,8 +22,8 @@ class Spaceship :
         has_technician = False
         
         for member in self.crew:
-            if isinstance(member, Operator):
-                if member.role.lower() == "pilote":
+            if isinstance(member, Operator):                        # isinstance permet de vérifier le type exact d'un objet 
+                if member.role.lower() == "pilote":                 # lower permet de tous mettre en minuscule 
                     has_pilot = True
                 elif member.role.lower() == "technicien":
                     has_technician = True
@@ -39,9 +39,9 @@ class Spaceship :
         if self.crew:
             print("\nMembres d'équipage:")
             for i, member in enumerate(self.crew, 1):
-                if isinstance(member, Operator):
+                if isinstance(member, Operator):                                                            # isinstance permet de vérifier le type exact d'un objet 
                     print(f"  {i}. {member.name} - {member.role} (expérience: {member.experience})")
-                elif isinstance(member, Mentalist):
+                elif isinstance(member, Mentalist):                                                         # # isinstance permet de vérifier le type exact d'un objet 
                     print(f"  {i}. {member.name} - Mentaliste (mana: {member.mana})")
                 else:
                     print(f"  {i}. {member.name} - Membre")
@@ -49,8 +49,8 @@ class Spaceship :
         preparation = self.check_preparation()
         print(f"\nPrêt au départ: {'Oui' if preparation else 'Non'}")
         if not preparation:
-            has_pilot = any(isinstance(m, Operator) and m.role.lower() == "pilote" for m in self.crew)
-            has_tech = any(isinstance(m, Operator) and m.role.lower() == "technicien" for m in self.crew)
+            has_pilot = any(isinstance(m, Operator) and m.role.lower() == "pilote" for m in self.crew)          # isinstance permet de vérifier le type exact d'un objet 
+            has_tech = any(isinstance(m, Operator) and m.role.lower() == "technicien" for m in self.crew)          # isinstance permet de vérifier le type exact d'un objet 
             if not has_pilot:
                 print("Il manque un pilote")
             if not has_tech:
