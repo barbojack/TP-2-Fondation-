@@ -1,3 +1,6 @@
+from Operator import *
+from Mentalist import *
+
 class Spaceship :
     def __init__(self, name, ship_type, condition) : 
         self.name = name
@@ -14,3 +17,41 @@ class Spaceship :
             print(f"{member.name} a rejoint l'équipage du {self.name}. (Équipage: {len(self.crew)}/10)")
             return True
         
+    def check_preparation(self) :
+        has_pilot = False
+        has_technician = False
+        
+        for member in self.crew:
+            if isinstance(member, Operator):
+                if member.role.lower() == "pilote":
+                    has_pilot = True
+                elif member.role.lower() == "technicien":
+                    has_technician = True
+        
+        return has_pilot and has_technician
+    
+    def display_info(self):
+        print(f"\n=== Vaisseau: {self.name} ===")
+        print(f"Type: {self.ship_type}")
+        print(f"Condition: {self.condition}")
+        print(f"Équipage: {len(self.crew)}/{10} membres")
+        
+        if self.crew:
+            print("\nMembres d'équipage:")
+            for i, member in enumerate(self.crew, 1):
+                if isinstance(member, Operator):
+                    print(f"  {i}. {member.name} - {member.role} (expérience: {member.experience})")
+                elif isinstance(member, Mentalist):
+                    print(f"  {i}. {member.name} - Mentaliste (mana: {member.mana})")
+                else:
+                    print(f"  {i}. {member.name} - Membre")
+        
+        preparation = self.check_preparation()
+        print(f"\nPrêt au départ: {'Oui' if preparation else 'Non'}")
+        if not preparation:
+            has_pilot = any(isinstance(m, Operator) and m.role.lower() == "pilote" for m in self.crew)
+            has_tech = any(isinstance(m, Operator) and m.role.lower() == "technicien" for m in self.crew)
+            if not has_pilot:
+                print("Il manque un pilote")
+            if not has_tech:
+                print("Il manque un technicien")
