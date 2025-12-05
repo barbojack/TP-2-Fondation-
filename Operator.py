@@ -1,13 +1,14 @@
-from Member import * 
+from Member import *
 
-class Operator(Member) :
 
-    def __init__(self, role, experience):
+class Operator(Member):
+    def __init__(self, first_name, last_name, gender, age, role):
+        super().__init__(first_name, last_name, gender, age)
         self.__role = role
         self.__experience = 0
 
-    @property                                   # Le @property permet de rendre privées les informations               
-    def _role(self):                            # Début des getters / setters
+    @property  # Le @property permet de rendre privées les informations
+    def _role(self):  # Début des getters / setters
         return self.__role
 
     @_role.setter
@@ -20,18 +21,22 @@ class Operator(Member) :
 
     @_experience.setter
     def _experience(self, value):
-        self.__experience = value               # Fin des getters / setters
+        self.__experience = value  # Fin des getters / setters
 
-    def act(self) :      # affiche le message pour chaque rôle
-        actions = { 
-            "technicien" : "Répare les sytèmes du vaisseau",
-            "pilote" : "Pilote le vaisseau",
-            "commandant" : "Dirige les membres du vaisseau",
-            "armurier" : "Gère les armes du vaisseau",
-            "cuisinier" : "Prépare les repas",
-            "entretien" : "Nettoie le vaisseau"
+    def act(self):  # affiche le message pour chaque rôle
+        actions = {
+            "technicien": "répare les sytèmes du vaisseau",
+            "homme de ménage": "nettoie le vaisseau",
+            "pilote": "pilote le vaisseau",
+            "commandant": "dirige les membres du vaisseau",
+            "armurier": "gère les armes du vaisseau",
+            "cuisinier": "prépare les repas"
         }
+        
+        print(f"{self._role} : {self._first_name} {actions[self._role]}")
 
-    def gain_experience(self) :
+    def gain_experience(self):
         self.experience += 1
-        print(f"{self.name} a gagné de l'expérience ! Niveau actuel : {self.experience}")
+        print(
+            f"{self.name} a gagné de l'expérience ! Niveau actuel : {self.experience}"
+        )

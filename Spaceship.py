@@ -1,9 +1,9 @@
 class Spaceship :
 
-    def __init__(self, name, shipType, condition, crew):
+    def __init__(self, name, shipType):
         self.__name = name
         self.__shipType = shipType
-        self.__condition = condition
+        self.__condition = "opérationnel"
         self.__crew = []
 
     @property                                   # Le @property permet de rendre privées les informations
