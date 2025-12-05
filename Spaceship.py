@@ -1,4 +1,4 @@
-class Spaceship :
+class Spaceship:
 
     def __init__(self, name, shipType):
         self.__name = name
@@ -6,8 +6,8 @@ class Spaceship :
         self.__condition = "opérationnel"
         self.__crew = []
 
-    @property                                   # Le @property permet de rendre privées les informations
-    def _name(self):                            # Début des getters / setters
+    @property  # @property permet de mettre en privée les informations
+    def _name(self):  # Début des getters / setters
         return self.__name
 
     @_name.setter
@@ -36,28 +36,32 @@ class Spaceship :
 
     @_crew.setter
     def _crew(self, value):
-        self.__crew = value                     # Fin des getters / setters
+        self.__crew = value  # Fin des getters / setters
 
-    def append_member(self, member) :
-        if len(self.crew) >= 10 :
-            print(f"Impossible d'ajouter {member.name} : l'équipage du {self.name} est complet).")
-            return False 
-        else :
-            self.crew.append(member)
-            print(f"{member.name} a rejoint l'équipage du {self.name}. (Équipage: {len(self.crew)}/10)")
+    def append_member(self, member):
+        if len(self._crew) >= 10:
+            print(
+                f"Impossible d'ajouter {member._first_name} : l'équipage du {self._name} est complet)."
+            )
+            return False
+        else:
+            self._crew.append(member)
+            print(
+                f"{member._first_name} a rejoint l'équipage du {self._name}. (Équipage: {len(self._crew)}/10)"
+            )
             return True
 
     def check_preparation(self):
         has_pilot = False
         has_technician = False
 
-        for member in self.crew:
+        for member in self._crew:
             try:
-                if member.role.lower() == "pilote":
+                if member._role.lower() == "pilote":
                     has_pilot = True
-                elif member.role.lower() == "technicien":
+                elif member._role.lower() == "technicien":
                     has_technician = True
             except AttributeError:
-                pass                                                    # Le membre n'a pas d'attribut 'role', on ignore
+                pass  # Le membre n'a pas d'attribut 'role', on ignore
 
         return has_pilot and has_technician

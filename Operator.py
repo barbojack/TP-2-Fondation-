@@ -30,13 +30,13 @@ class Operator(Member):
             "pilote": "pilote le vaisseau",
             "commandant": "dirige les membres du vaisseau",
             "armurier": "gère les armes du vaisseau",
-            "cuisinier": "prépare les repas"
+            "cuisinier": "prépare les repas",
         }
-        
+
         print(f"{self._role} : {self._first_name} {actions[self._role]}")
 
     def gain_experience(self):
-        self.experience += 1
+        self._experience += 1
         print(
-            f"{self.name} a gagné de l'expérience ! Niveau actuel : {self.experience}"
+            f"{self._first_name} a gagné de l'expérience ! Niveau actuel : {self._experience}"
         )

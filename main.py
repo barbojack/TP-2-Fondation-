@@ -12,4 +12,6 @@ print(charif._role)
       
 charif.act()
 
-paul = Mentalist("Paul", "Van", "homme", 19, 1000000000000000000000)
+paul = Mentalist("Paul", "VAN de WALLE", "homme", 19, 1000000000000000000000)
+
+paul.act(charif)
