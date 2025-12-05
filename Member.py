@@ -6,8 +6,8 @@ class Member :
         self.__gender = gender
         self.__age = int(age)
 
-    @property
-    def _first_name(self):
+    @property                                       # Le @property permet de rendre privées les informations
+    def _first_name(self):                          # Début de la liste des getters / setters
         return self.__first_name
 
     @_first_name.setter
@@ -36,7 +36,7 @@ class Member :
 
     @_age.setter
     def _age(self, value):
-        self.__age = value
+        self.__age = value                          # Fin de la liste des getters / setters
         
     def introduce_yourself(self) : 
         print("Je m'appelle", self.__first_name, self.__last_name, "je suis", self.__gender, "de", self.__age, "ans.")

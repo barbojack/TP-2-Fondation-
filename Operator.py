@@ -6,8 +6,8 @@ class Operator(Member) :
         self.__role = role
         self.__experience = 0
 
-    @property
-    def _role(self):
+    @property                                   # Le @property permet de rendre privées les informations               
+    def _role(self):                            # Début des getters / setters
         return self.__role
 
     @_role.setter
@@ -20,7 +20,7 @@ class Operator(Member) :
 
     @_experience.setter
     def _experience(self, value):
-        self.__experience = value
+        self.__experience = value               # Fin des getters / setters
 
     def act(self) :      # affiche le message pour chaque rôle
         actions = { 
@@ -35,7 +35,3 @@ class Operator(Member) :
     def gain_experience(self) :
         self.experience += 1
         print(f"{self.name} a gagné de l'expérience ! Niveau actuel : {self.experience}")
-        
-    def display_info(self) :      # permet de voir les informations de la personne 
-        super().display_info()
-        print(f"Rôle: {self.role}, Expérience: {self.experience}")

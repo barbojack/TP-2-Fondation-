@@ -5,13 +5,13 @@ class Mentalist(Member) :
     def __init__(self, mana):
         self.__mana = 100
 
-    @property
-    def _mana(self):
+    @property                           # Le @property permet de rendre privée l'information contenue
+    def _mana(self):                    # Début du getter / setter
         return self.__mana
 
     @_mana.setter
     def _mana(self, value):
-        self.__mana = value
+        self.__mana = value             # Fin du getter / setter
         
     def act(self, operator) : 
         if self.mana >= 20:
@@ -21,12 +21,8 @@ class Mentalist(Member) :
         else:
             print(f"{self.name} n'a pas assez de mana pour influencer {operator.name}. (Mana actuel: {self.mana})")
             
-    def recharge_mana(self) : 
-        ancien_mana = self.mana
+    def refill_mana(self) : 
+        former_mana = self.mana
         self.mana = min(self.mana + 50, 100)
-        gain = self.mana - ancien_mana
+        gain = self.mana - former_mana
         print(f"{self.name} recharge son mana de {gain} points. (Mana actuel: {self.mana})")
-        
-    def display_info(self) :                    # permet de voir le mana que la personne possède 
-        super().display_info()
-        print(f"Mana: {self.mana}")
