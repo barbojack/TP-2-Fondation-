@@ -1,3 +1,8 @@
+from Member import * 
+from Operator import *
+from Mentalist import *
+from Spaceship import *
+
 class Fleet:
 
     def __init__(self, name, spaceships):
@@ -17,20 +22,20 @@ class Fleet:
     def append_spaceship(
         self, spaceships
     ):  # Vérifie que la capacité maximale de 15 vaisseaux est respecter
-        if len(self.Spaceship) == 15:
+        if len(self._spaceships) == 15:
             print(
-                f"La flotte {self.name} a atteint sa capacité maximale de 15 vaisseaux !!!"
+                f"La flotte {self._name} a atteint sa capacité maximale de 15 vaisseaux !!!"
             )
             return False
-        self.spaceships.append(spaceships)  # Ajoute un vaisseau à la flotte
+        self._spaceships.append(spaceships)  # Ajoute un vaisseau à la flotte
         print(
-            f"Le vaisseau {self.name} a été ajouté à la flotte. La flotte est composée de {len(self.Spaceship)}/15"
+            f"Le vaisseau {self._name} a été ajouté à la flotte. La flotte est composée de {len(self._spaceships)}/15"
         )
         return True
 
     def statistics(self):
         print(
-            f"\n--- Statistiques de la flotte {self.name}---"
+            f"\n--- Statistiques de la flotte {self._name}---"
         )  # Affiche les statistiques de la flotte
         print(
             f"Nombre de vaisseaux : {len(self._spaceships)}"
@@ -41,13 +46,13 @@ class Fleet:
 
         total_members = 0  # Calcul du nombre total de membres présent dans l'équipage
         for spaceship in self._spaceships:
-            total_members += len(spaceship.crew)
+            total_members += len(spaceship._crew)
         print(f"Nombre total de membres d'équipage : {total_members}")
 
         roles = {}  # Répartition des rôles
         for spaceship in self._spaceships:
-            for member in spaceship.crew:
-                role = member.role
+            for member in spaceship._crew:
+                role = member._role
                 if role in roles:
                     roles[role] += 1
                 else:
@@ -63,9 +68,9 @@ class Fleet:
         operators_count = 0
 
         for spaceship in self._spaceships:
-            for member in spaceship.crew:
-                if member.role == "Operator":
-                    total_experience += member.experience_level
+            for member in spaceship._crew:
+                if member._role == "Operator":
+                    total_experience += member._experience_level
                     operators_count += 1
         if operators_count > 0:
             level_average = (

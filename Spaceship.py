@@ -52,9 +52,10 @@ class Spaceship:
             return True
 
     def check_preparation(self):
+        
         has_pilot = False
         has_technician = False
-
+        
         for member in self._crew:
             try:
                 if member._role.lower() == "pilote":
@@ -64,4 +65,9 @@ class Spaceship:
             except AttributeError:
                 pass  # Le membre n'a pas d'attribut 'role', on ignore
 
-        return has_pilot and has_technician
+        if has_pilot and has_technician:
+            print("Le vaisseau est prêt au décollage !")
+            return True
+        else:
+            print("Il manque un pilote ou un technicien dans le vaisseau. Impossible de décoller !")
+            return False
