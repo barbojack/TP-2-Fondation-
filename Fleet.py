@@ -1,8 +1,3 @@
-from Member import * 
-from Operator import *
-from Mentalist import *
-from Spaceship import *
-
 class Fleet:
 
     def __init__(self, name, spaceships):
@@ -10,9 +5,7 @@ class Fleet:
         self.__name = name
 
     @property  # Début de la liste des getters : setters
-    def _name(
-        self,
-    ):  # Le @property est dû au double (__) pour rendre privées les informations
+    def _name(self):  # Le @property est dû au double (__) pour rendre privées les informations
         return self.__name
 
     @_name.setter
@@ -52,11 +45,12 @@ class Fleet:
         roles = {}  # Répartition des rôles
         for spaceship in self._spaceships:
             for member in spaceship._crew:
-                role = member._role
-                if role in roles:
-                    roles[role] += 1
-                else:
-                    roles[role] = 1
+                if hasattr(member, '_role'):            # Vérifie si le rôle existe
+                    role = member._role
+                    if role in roles:
+                        roles[role] += 1
+                    else:
+                        roles[role] = 1
 
         print(
             "\nRépartition des rôles :"
@@ -69,8 +63,8 @@ class Fleet:
 
         for spaceship in self._spaceships:
             for member in spaceship._crew:
-                if member._role == "Operator":
-                    total_experience += member._experience_level
+                if hasattr(member, '_experience'):                  # Vérifie si le membre possède de l'expérience et est donc un Operator
+                    total_experience += member._experience
                     operators_count += 1
         if operators_count > 0:
             level_average = (
