@@ -1,4 +1,4 @@
-from Member import *
+from classes.Member import *
 
 
 class Operator(Member):

@@ -28,7 +28,7 @@ class Fleet:
 
     def statistics(self):
         print(
-            f"\n--- Statistiques de la flotte {self._name}---"
+            f"\n--- Statistiques de la flotte {self._name}---\n"
         )  # Affiche les statistiques de la flotte
         print(
             f"Nombre de vaisseaux : {len(self._spaceships)}"

@@ -1,8 +1,8 @@
-from Member import * 
-from Operator import *
-from Mentalist import *
-from Spaceship import *
-from Fleet import *
+from classes.Member import Member
+from classes.Operator import Operator
+from classes.Mentalist import Mentalist
+from classes.Spaceship import Spaceship
+from classes.Fleet import Fleet
 
 chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
 print(chris._first_name)
@@ -26,10 +26,10 @@ charif.act()
 
 paul.act(charif)
 
-star_destroyer = Spaceship("Star_Destroyer", "battle_ship")
-hunter = Spaceship("Hunter", "battle_ship")
-amiral = Spaceship("Amiral", "Amiral")
-x_wing = Spaceship("X-Wing", "battle_ship")
+star_destroyer = Spaceship("Star Destroyer", "Vaisseau de Combat")
+hunter = Spaceship("Hunter", "Vaisseau de Combat")
+amiral = Spaceship("Amiral", "Vaisseau de Commandement")
+x_wing = Spaceship("X-Wing", "Vaisseau de Combat")
 
 # sith = Fleet("Sith", [])      # On a besoin des [] car c'est une liste de vaisseaux dans la flotte
 
@@ -75,9 +75,25 @@ hunter.check_preparation()
 # Test des classes 
 
 paul.introduce_yourself()
+
 luke.refill_mana()
+yoda.gain_experience()
 khalil.gain_experience()
+anakin.gain_experience()
+poe.gain_experience()
+anakin.gain_experience()
+leia.gain_experience()
+r2d2.gain_experience()
+
 
 sith.statistics() 
 republic.statistics()               # les mentalists ne sont pas afficher dans la répartition des rôles
 
+amiral.remove_member("Kenobi")
+star_destroyer.remove_member("Chevalier")
+
+amiral.append_member(obiwan)
+star_destroyer.append_member(chris)
+
+amiral.display_crew()
+star_destroyer.display_crew()
