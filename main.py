@@ -237,7 +237,15 @@ def main_menu():
         elif principal_choice == '4':
             while True:
                 print("\n--- ACTIONS DES MEMBRES ---")
-                print("Membres disponibles :", ", ".join(available_members.keys()))
+                members_keys = list(available_members.keys())
+                colonnes = 4
+                print("Membres disponibles :")
+                for i, name in enumerate(members_keys):
+                    print(f"{name.ljust(12)}", end="")
+                    if (i + 1) % colonnes == 0:
+                        print()
+                if len(members_keys) % colonnes != 0:
+                    print()
                 print("1. Demander à un membre de se présenter")
                 print("2. Faire gagner de l'expérience à un Opérateur")
                 print("3. Retour au Menu Principal")
