@@ -80,6 +80,7 @@ class Spaceship:
             except AttributeError:                              # Gère le cas où un objet dans la liste n'aurait pas l'attribut _last_name
                 continue
         if member_to_remove:
+            print(f"{member_to_remove._first_name} {member_to_remove._last_name} a été retiré de l'équipage du {self._name}.")
             self._crew.remove(member_to_remove)
             try:
                 first_name = member_to_remove._first_name

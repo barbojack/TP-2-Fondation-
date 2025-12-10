@@ -1,3 +1,5 @@
+from classes.Mentalist import Mentalist
+
 class Fleet:
 
     def __init__(self, name, spaceships):
@@ -38,9 +40,14 @@ class Fleet:
             return
 
         total_members = 0  # Calcul du nombre total de membres présent dans l'équipage
+        mentalist_count = 0
         for spaceship in self._spaceships:
             total_members += len(spaceship._crew)
-        print(f"Nombre total de membres d'équipage : {total_members}")
+            for member in spaceship._crew:
+                if isinstance(member, Mentalist):
+                    mentalist_count += 1
+        print(f"\nNombre total de membres d'équipage : {total_members}")
+        print(f"Nombre total de Mentalists : {mentalist_count}")
 
         roles = {}  # Répartition des rôles
         for spaceship in self._spaceships:
