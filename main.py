@@ -26,6 +26,8 @@ charif.act()
 
 paul.act(charif)
 
+# Création des Vaisseaux
+
 star_destroyer = Spaceship("Star Destroyer", "Vaisseau de Combat")
 hunter = Spaceship("Hunter", "Vaisseau de Combat")
 amiral = Spaceship("Amiral", "Vaisseau de Commandement")

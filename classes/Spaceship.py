@@ -70,7 +70,7 @@ class Spaceship:
 
     # Fonction permettant de retirer un membre de l'équipage 
 
-    def remove_member(self, lastname: str)->bool:               # Recherche un membre de l'équipage par son nom de famille et le retire s'il est trouvé.
+    def remove_member(self, lastname):               # Recherche un membre de l'équipage par son nom de famille et le retire s'il est trouvé.
         member_to_remove = None
         for member in self._crew:
             try:
@@ -111,7 +111,12 @@ class Spaceship:
             print("Le vaisseau est prêt au décollage !")
             return True
         else:
-            print("Il manque un pilote ou un technicien dans le vaisseau. Impossible de décoller !")
+            manquants = []                              # Cette partie va permettre de savoir si il manque un technicien ou un pilote dans le vaisseau
+            if not has_pilot:
+                manquants.append("pilote")
+            if not has_technician:
+                manquants.append("technicien")
+            print(f"Le Vaisseau {self._name} ne peut pas décoller. Il manque au moins un {' et un '.join(manquants)}.")
             return False
 
 
