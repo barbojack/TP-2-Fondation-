@@ -4,11 +4,10 @@ from classes.Mentalist import Mentalist
 from classes.Spaceship import Spaceship
 from classes.Fleet import Fleet
 
-chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
-print(chris._first_name)
-charif = Operator("Charif", "El Bakkali", "homme", 19, "homme de ménage")
-print(charif._role)
 
+
+chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
+charif = Operator("Charif", "El Bakkali", "homme", 19, "homme de ménage")
 khalil = Operator("Khalil", "Serdoun", "homme", "19", "technicien")
 paul = Mentalist("Paul", "VAN de WALLE", "homme", 19, 10000)
 yoda = Operator("Yoda", "Maître", "homme", 100, "commandant")      
@@ -23,7 +22,8 @@ sidious = Mentalist("Dark", "Sidious", "homme", 50, 100)
 trooper = Operator("Trooper", "Ang", "homme", 25, "technicien")
 
 charif.act()
-
+print(charif._role)
+print(chris._first_name)
 paul.act(charif)
 
 # Création des Vaisseaux
@@ -100,10 +100,23 @@ star_destroyer.append_member(chris)
 amiral.display_crew()
 star_destroyer.display_crew()
 
+# Registre central des membres (pour le menu interactif)
+
+available_members: dict[str, any] = {}
+
+for variable_name, object in list(globals().items()):
+    if isinstance(object, (Operator, Mentalist)):
+        available_members[variable_name.lower()] = object
+
+
 # Création d'un menu en ligne de commande
 
 def interactive_member_creation():
     print("\n--- CREATION D'UN NOUVEAU MEMBRE ---")
+    variable_name = input("Pseudo unique pour ce membre : ").lower
+    if variable_name in available_members:
+        print("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.")
+        return None
     first_name = input("Prénom : ")
     last_name = input("Nom de famille : ")
     gender = input("Genre : ")
@@ -113,20 +126,25 @@ def interactive_member_creation():
         if member_type == '1':
             role = input("Rôle de l'Operateur : ")
             new_member = Operator(first_name, last_name, gender, age, role)
-            print(f"L'Opérateur {first_name} {last_name} a été créé.")
+            available_members[variable_name] = new_member
+            print(f"L'Opérateur {first_name} {last_name} a été créé et enregistré sous '{variable_name}'.")
             return new_member
         elif member_type == '2':
             try:
                 mana = int(input("Niveau de Mana : "))
                 new_member = Mentalist(first_name, last_name, gender, age, mana)
+                available_members[variable_name] = new_member
+                print(f"Mentalist {first_name} {last_name} créé et enregistré sous '{variable_name}'.")
                 return new_member
             except ValueError:
                 print("Erreur : Le niveau de Mana doit être un nombre entier.")
                 continue
         else:
             print("Choix invalide. Veuillez entrer '1' ou '2'.")
+
+        
     
-def vessel_management_menu(vessel):
+def vessel_management_menu(vessel: Spaceship):
     available_vessels = {
         '1': star_destroyer,
         '2': amiral,
@@ -151,8 +169,10 @@ def vessel_management_menu(vessel):
             if add_choice == '1':
                 member_to_add = interactive_member_creation()
             elif add_choice == '2': 
-                variable_member_name = input("Entrez le nom de variable du membre à ajouter : ").lower()
-                member_to_add = globals().get(variable_member_name)
+                print("Membres disponibles :", ", ".join(available_members.keys()))
+                variable_member_name = input("Entrez le pseudo du membre à ajouter : ").lower()
+                member_to_add = available_members.get(variable_member_name)
+                member_to_add = available_members.get(variable_member_name)
                 if not (member_to_add and isinstance(member_to_add, (Operator, Mentalist))):
                     print(f"Erreur : L'objet membre '{variable_member_name}' est introuvable ou n'est pas un membre valide.")
                     member_to_add = None
@@ -215,9 +235,38 @@ def main_menu():
             sith.statistics()
             republic.statistics()
         elif principal_choice == '4':
-            print("\n--- ACTIONS DES MEMBRES ---")
-            yoda.gain_experience()
-            obiwan.introduce_yourself()
+            while True:
+                print("\n--- ACTIONS DES MEMBRES ---")
+                print("Membres disponibles :", ", ".join(available_members.keys()))
+                print("1. Demander à un membre de se présenter")
+                print("2. Faire gagner de l'expérience à un Opérateur")
+                print("3. Retour au Menu Principal")
+                action_choice = input("Votre choix : ").upper()
+                if action_choice == '3':
+                    break
+                if action_choice in ['1', '2']:
+                    variable_member_name = input("Entrez le pseudo du membre : ").lower()
+                    object_member = available_members.get(variable_member_name)
+                    if not object_member or not isinstance(object_member, (Operator, Mentalist)):
+                        print(f"Erreur : L'objet membre '{variable_member_name}' est introuvable ou n'est pas un membre valide.")
+                        continue
+                    if action_choice == '1':
+                        try:
+                            object_member.introduce_yourself()
+                        except AttributeError:
+                            print(f"{object_member._first_name} ne possède pas de présentation.")
+                    elif action_choice == '2':
+                        if isinstance(object_member, Operator):
+                            try:
+                                object_member.gain_experience()
+                            except AttributeError:
+                                print(f"{object_member._first_name} est un Opérateur, mais ne possède d'expérience.")
+                        else: 
+                            print(f"Erreur : {object_member._first_name} {object_member._last_name} n'est pas un Opérateur et ne peut donc pas gagner d'expérience.")
+                else:
+                    print("Choix invalide. Veuillez réessayer.")
+            
+
         elif principal_choice == '5':
             print("Extinction du système. Au revoir!")
             break
