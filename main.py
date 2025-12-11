@@ -4,6 +4,84 @@ from classes.Mentalist import Mentalist
 from classes.Spaceship import Spaceship
 from classes.Fleet import Fleet
 from typing import Dict, Any, List # Importations ajoutées pour la clarté
+import json
+
+def convert_object_to_json(object):
+    if isinstance(object, (Operator, Mentalist, Spaceship, Fleet)):
+        data = {
+            '__class__': object.__class__.__name__,
+            '__module__': object.__class__.__module__,
+        }
+        for key, value in object.__dict__.items():
+            data[key] = value
+            if hasattr(object, 'crew'):
+                data['_crew'] = [convert_object_to_json(member) for member in object._crew]
+            if hasattr(object, '_spaceships'):
+                data['_spaceships'] = [convert_object_to_json(vessel) for vessel in object._spaceships]
+        return data
+    return object
+
+def recreate_object_from_json(data):
+    if '__class__' in data:
+        class_name = data['__class__']
+        module_name = data.get('__module__', 'classes')
+        try:
+            class_ = globals()[class_name]
+        except KeyError:
+            import importlib
+            module = importlib.import_module(module_name)
+            class_ = getattr(module, class_name)
+        del data['__class__']
+        del data['__module__']
+        if '_crew' in data:
+            data['_crew'] = [recreate_object_from_json(item) for item in data['_crew']]
+        if 'spaceships' in data:
+            data['spaceships'] = [recreate_object_from_json(item) for item in data['_spaceships']]
+        object = class_.__new__(class_)
+        object.__dict__.update(data)
+        return object
+    return data
+
+SAVE_FILE = "save_data.json"
+
+def save_program_state():
+    data_to_save = {
+        "members": MEMBERS_DICT,
+        "vessels": VESSELS_DICT,
+        "fleets": FLEETS_DICT
+    }
+    try:
+        with open(SAVE_FILE, 'w') as f:
+            json.dump(data_to_save, f, indent=4, default=convert_object_to_json)
+        print(f"\nSauvegarde réussie dans {SAVE_FILE}!")
+        input("Appuyez sur Entrée pour continuer...")
+    except Exception as e:
+        print(f"\nErreur lors de la sauvegarde : {e}")
+        input("Appuyez sur Entrée pour continuer...")
+        
+def load_program_state():
+    global MEMBERS_DICT, VESSELS_DICT, FLEETS_DICT
+    try:
+        with open(SAVE_FILE, 'r') as f:
+            loaded_data = json.load(f)
+        MEMBERS_DICT.clear()
+        VESSELS_DICT.clear()
+        FLEETS_DICT.clear()
+        for key, member_data in loaded_data.get("membres", {}).items():
+            MEMBERS_DICT[key] = recreate_object_from_json(member_data)
+        for key, vessel_data in loaded_data.get("vessels", {}).items():
+            VESSELS_DICT[key] = recreate_object_from_json(vessel_data)
+        for key, fleet_data in loaded_data.get("fleets", {}).items():
+            FLEETS_DICT[key] = recreate_object_from_json(fleet_data)
+        print(f"\nFichier de sauvegarde '{SAVE_FILE}' introuvable. Rien n'a été chargé.")
+        input("Appuyez sur Entrée pour continuer...")
+    except FileNotFoundError:
+        print(f"\nFichier de sauvegarde '{SAVE_FILE}' introuvable. Rien n'a été chargé.")
+        input("Appuyez sur Entrée pour continuer...")
+    except Exception as e:
+        print(f"\nErreur lors du chargement : {e}")
+        input("Appuyez sur Entrée pour continuer...")   
+         
 
 # ========== CREATION DES MEMBRES ==========
 chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
@@ -396,7 +474,9 @@ def display_main_menu():
     print("7. Vérifier la préparation au décollage")
     print("8. Afficher les statistiques des flottes")
     print("9. Actions des membres")
-    print("10. Quitter")
+    print("10. Sauvegarder l'état de votre jeu")
+    print("11. Charger une sauvegarde du jeu")
+    print("12. Quitter")
     print("="*50)
 
 def menu_manage_vessels():
