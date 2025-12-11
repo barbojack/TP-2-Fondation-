@@ -608,6 +608,7 @@ def menu_member_actions():
 
 def main_program_loop():
     """Boucle principale du programme."""
+    load_program_state()
     while True:
         display_main_menu()
         choice = input("Votre choix : ")
@@ -631,10 +632,14 @@ def main_program_loop():
         elif choice == '9':
             menu_member_actions()
         elif choice == '10':
+            save_program_state()
+        elif choice == '11':
+            load_program_state()
+        elif choice == '12':
             print("\nAu revoir !")
             break
         else:
-            print("Choix invalide ! Entrez un numéro entre 1 et 10.")
+            print("Choix invalide ! Entrez un numéro entre 1 et 12.")
 
 # ========== LANCEMENT DU PROGRAMME ==========
 if __name__ == "__main__":
