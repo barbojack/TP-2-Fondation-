@@ -3,396 +3,559 @@ from classes.Operator import Operator
 from classes.Mentalist import Mentalist
 from classes.Spaceship import Spaceship
 from classes.Fleet import Fleet
+from typing import Dict, Any, List # Importations ajoutées pour la clarté
 
-COLONNES_MEMBRE = 4
-LARGEUR_COLONNE_MEMBRE = 12
-COLONNES_VAISSEAU = 3
-LARGEUR_COLONNE_VAISSEAU = 15
-
+# ========== CREATION DES MEMBRES ==========
 chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
 charif = Operator("Charif", "El Bakkali", "homme", 19, "homme de ménage")
-khalil = Operator("Khalil", "Serdoun", "homme", "19", "technicien")
+khalil = Operator("Khalil", "Serdoun", "homme", 19, "technicien")
 paul = Mentalist("Paul", "VAN de WALLE", "homme", 19, 10000)
-yoda = Operator("Yoda", "Maître", "homme", 100, "commandant")      
+yoda = Operator("Maître", "Yoda", "homme", 100, "commandant")      
 anakin = Operator("Anakin", "Skywalker", "homme", 26, "pilote")
 luke = Mentalist("Luke", "Skywalker", "homme", 18, 100)
 obiwan = Mentalist("Obi-Wan", "Kenobi", "homme", 30, 100)
-r2d2 = Operator("R2D2", "Droide", "homme", 20, "technicien")
+r2d2 = Operator("R2D2", "", "droide", 20, "technicien")
 poe = Operator("Poe", "Dameron", "homme", 30, "pilote")
 leia = Operator("Leia", "Skywalker", "femme", 18, "pilote")
-c3pO = Operator("C3PO", "Droide", "homme", 30, "technicien")
+c3po = Operator("C3PO", "", "droide", 30, "technicien")
 sidious = Mentalist("Dark", "Sidious", "homme", 50, 100)
 trooper = Operator("Trooper", "Ang", "homme", 25, "technicien")
 
-charif.act()
-print(charif._role)
-print(chris._first_name)
-paul.act(charif)
-
-# Création des Vaisseaux
-
+# ========== CREATION DES VAISSEAUX ==========
 star_destroyer = Spaceship("Star Destroyer", "Vaisseau de Combat")
 hunter = Spaceship("Hunter", "Vaisseau de Combat")
 amiral = Spaceship("Amiral", "Vaisseau de Commandement")
 x_wing = Spaceship("X-Wing", "Vaisseau de Combat")
 
-# sith = Fleet("Sith", [])      # On a besoin des [] car c'est une liste de vaisseaux dans la flotte
-
-sith = Fleet ("Sith", [])
+# ========== CREATION DES FLOTTES ==========
+sith = Fleet("Sith", [])
 republic = Fleet("Republic", [])
 
-# Ajout des vaisseaux dans la flotte
-
+# ========== AJOUT DES VAISSEAUX AUX FLOTTES ==========
 sith.append_spaceship(star_destroyer)
 sith.append_spaceship(hunter)
 republic.append_spaceship(amiral)
 republic.append_spaceship(x_wing)
 
-
-# Ajout de membres dans le vaisseau Star_Destroyer
-
+# ========== AJOUT DES MEMBRES AUX VAISSEAUX ==========
+# Star Destroyer
 star_destroyer.append_member(charif)
 star_destroyer.append_member(chris)
 star_destroyer.append_member(khalil)
 star_destroyer.append_member(paul)
 star_destroyer.append_member(anakin)
 
+# Amiral
 amiral.append_member(yoda)
 amiral.append_member(leia)
-amiral.append_member(c3pO)
+amiral.append_member(c3po)
 amiral.append_member(obiwan)
 amiral.append_member(luke)
 
+# X-Wing
 x_wing.append_member(poe)
 x_wing.append_member(r2d2)
 
-# Ajout de membres dans le vaisseau Hunter
-
+# Hunter
 hunter.append_member(sidious)
 hunter.append_member(trooper)
-hunter.append_member(anakin)
 
-# Vérification de la préparation du vaisseau Star Destroyer
+# ========== TESTS INITIAUX ==========
+print("\n=== TESTS DES FONCTIONNALITES ===")
+charif.act()
+paul.introduce_yourself()
+luke.refill_mana()
+khalil.gain_experience()
 
+# Vérifications
 star_destroyer.check_preparation()
 hunter.check_preparation()
 
-# Test des classes 
+# Statistiques
+sith.statistics()
+republic.statistics()
 
-paul.introduce_yourself()
+# ========== REGISTRES GLOBAUX ==========
+# Dictionnaires pour stocker tous les objets créés
+MEMBERS_DICT: Dict[str, Any] = {}
+VESSELS_DICT: Dict[str, Spaceship] = {}
+FLEETS_DICT: Dict[str, Fleet] = {}
 
-luke.refill_mana()
-yoda.gain_experience()
-khalil.gain_experience()
-anakin.gain_experience()
-poe.gain_experience()
-anakin.gain_experience()
-leia.gain_experience()
-r2d2.gain_experience()
+# Remplir automatiquement les dictionnaires
+for name, obj in list(globals().items()):
+    if isinstance(obj, (Operator, Mentalist)):
+        MEMBERS_DICT[name.lower()] = obj
+    elif isinstance(obj, Spaceship):
+        VESSELS_DICT[name.lower()] = obj
+    elif isinstance(obj, Fleet):
+        FLEETS_DICT[name.lower()] = obj
 
+# ========== FONCTIONS UTILITAIRES (UTILITY FUNCTIONS) ==========
 
-sith.statistics() 
-republic.statistics()               # les mentalists ne sont pas afficher dans la répartition des rôles
-
-amiral.remove_member("Kenobi")
-star_destroyer.remove_member("Chevalier")
-
-amiral.append_member(obiwan)
-star_destroyer.append_member(chris)
-
-amiral.display_crew()
-star_destroyer.display_crew()
-
-# Registre central des membres (pour le menu interactif)
-
-available_members: dict[str, any] = {}
-available_vessels: dict[str, Spaceship] = {}
-available_fleets: dict[str, Fleet] = {}
-
-for variable_name, object in list(globals().items()):
-    if isinstance(object, (Operator, Mentalist)):
-        available_members[variable_name.lower()] = object
-    elif isinstance(object, Spaceship):
-        available_vessels[variable_name.lower()] = object
-    elif isinstance(object, Fleet):
-        available_fleets[variable_name.lower()] = object
-
-
-def afficher_en_colonnes(items: list[str], colonnes: int, largeur_colonne: int):
-    for i, name in enumerate(items):
-        print(f"{name.ljust(largeur_colonne)}", end="")
-        if (i + 1) % colonnes == 0:
-            print()
-    if len(items) % colonnes != 0:
-        print()
-
-# Création d'une nouvelle flotte et l'ajoute au registre des flottes
-
-def interactive_fleet_creation():
-    print("\n--- CREATION D'UNE NOUVELLE FLOTTE ---")
-    fleet_name_lower = input("Nom de la flotte : ").lower
-    if fleet_name_lower in available_fleets:
-        print("Ce nom de flotte est déjà utilisé.")
-        return None
-    real_fleet_name = input("Confirmez le nom de la flotte : ")
-    try:
-        new_fleet = Fleet(str(real_fleet_name), [])
-        available_fleets[fleet_name_lower] = new_fleet
-        print(f"Flotte '{new_fleet}' créée et enregistrée.")
-        return new_fleet
-    except Exception as e:
-        print(f"Erreur lors de la création de la flotte : {e}")
-        return None
-    
-# Création d'un nouveau vaisseau et l'ajoute au registre des vaisseaux
-
-def interactive_vessel_creation():
-    print("\n--- CREATION D'UN NOUVEAU VAISSEAU ---")
-    vessel_name = input("Nom du Vaisseau : ").lower()
-    if vessel_name in available_vessels:
-        print("Ce nom de Vaisseau est déjà utilisé.")
-        return None
-    vessel_type = input("Type de Vaisseau : ")
-    try:
-        new_spaceship = Spaceship(vessel_name.capitalize(), vessel_type)
-        available_vessels[vessel_name] = new_spaceship
-        print(f"Vaisseau '{new_spaceship._name}' créée et enregistré.")
-        if available_fleets:
-            print("\nVoulez-vous intégrer ce vaisseau à une flotte existante ? ")
-            fleets_names = [str(key) for key in available_fleets.keys()]
-            print("Flottes disponibles :", ", ".join(fleets_names))
-            fleet_choice = input("Votre choix : ").upper()
-            if fleet_choice == '0':
-                target_fleet_name = input("Nom de la flotte cible : ").lower()
-                target_fleet = available_fleets.get(target_fleet_name)
-                if target_fleet:
-                    target_fleet.append_spaceship(new_spaceship)
-                    print(f"Vaisseau '{new_spaceship._name}' ajouté à la flotte '{target_fleet_name}'.")
-                else:
-                    print("Flotte introuvable. Le Vaisseau n'a pas été ajouté à une flotte.")
-        return new_spaceship
-    except Exception as e:
-        print(f"Erreur lors de la création du Vaisseau : {e}")
-        return None
-
-
-# Création d'un menu en ligne de commande
-
-def interactive_member_creation():
-    print("\n--- CREATION D'UN NOUVEAU MEMBRE ---")
-    variable_name = input("Pseudo unique pour ce membre : ").lower
-    if variable_name in available_members:
-        print("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.")
-        return None
-    first_name = input("Prénom : ")
-    last_name = input("Nom de famille : ")
-    gender = input("Genre : ")
-    age = input("Age : ")
-    while True:
-        member_type = input("Type (1 pour Operateur, 2 pour Mentalist) : ").upper()
-        if member_type == '1':
-            role = input("Rôle de l'Operateur : ")
-            new_member = Operator(first_name, last_name, gender, age, role)
-            available_members[variable_name] = new_member
-            print(f"L'Opérateur {first_name} {last_name} a été créé et enregistré sous '{variable_name}'.")
-            return new_member
-        elif member_type == '2':
-            try:
-                mana = int(input("Niveau de Mana : "))
-                new_member = Mentalist(first_name, last_name, gender, age, mana)
-                available_members[variable_name] = new_member
-                print(f"Mentalist {first_name} {last_name} créé et enregistré sous '{variable_name}'.")
-                return new_member
-            except ValueError:
-                print("Erreur : Le niveau de Mana doit être un nombre entier.")
-                continue
-        else:
-            print("Choix invalide. Veuillez entrer '1' ou '2'.")
-
+def display_list_in_columns(items: List[str], num_columns: int = 4, column_width: int = 12):
+    """Affiche une liste d'éléments en plusieurs colonnes."""
+    for i, item in enumerate(items):
+        print(f"{item.ljust(column_width)}", end="")
+        if (i + 1) % num_columns == 0:
+            print()  # Retour à la ligne
+    if len(items) % num_columns != 0:
+        print()  # Dernière ligne si incomplète
         
+def create_member():
+    """Crée un nouveau membre (Operator ou Mentalist)."""
+    print("\n--- CREATION D'UN NOUVEAU MEMBRE ---")
     
-def vessel_management_menu(vessel: Spaceship):
-    available_vessels = {
-        '1': star_destroyer,
-        '2': amiral,
-        '3': hunter,
-        '4': x_wing
-    }
+    pseudo = input("Pseudo unique (ou 'r' pour retour) : ").lower()
+    if pseudo == 'r':
+        return None
+        
+    if pseudo in MEMBERS_DICT:
+        print("Ce pseudo existe déjà !")
+        return None
+        
+    prenom = input("Prénom : ")
+    nom = input("Nom : ")
+    genre = input("Genre : ")
+    age = input("Âge : ")
+    
+    print("\nType de membre :")
+    print("1. Opérateur")
+    print("2. Mentaliste")
+    choix = input("Votre choix (1 ou 2) : ")
+    
+    if choix == '1':
+        role = input("Rôle (pilote, technicien, etc.) : ")
+        new_member = Operator(prenom, nom, genre, age, role)
+        MEMBERS_DICT[pseudo] = new_member
+        print(f"Opérateur {prenom} {nom} créé !")
+        return new_member
+            
+    elif choix == '2':
+        try:
+            mana = int(input("Niveau de mana : "))
+            new_member = Mentalist(prenom, nom, genre, age, mana)
+            MEMBERS_DICT[pseudo] = new_member
+            print(f"Mentaliste {prenom} {nom} créé !")
+            return new_member
+        except ValueError:
+            print("Le mana doit être un nombre !")
+            return None
+    else:
+        print("Choix invalide !")
+        return None
+
+def create_spaceship():
+    """Crée un nouveau vaisseau."""
+    print("\n--- CREATION D'UN NOUVEAU VAISSEAU ---")
+    
+    name = input("Nom du vaisseau (ou 'r' pour retour) : ")
+    if name.lower() == 'r':
+        return None
+        
+    name_key = name.lower().replace(" ", "_")
+    
+    if name_key in VESSELS_DICT:
+        print("Ce nom existe déjà !")
+        return None
+        
+    vessel_type = input("Type (Combat, Commandement, etc.) : ")
+    
+    new_vessel = Spaceship(name, vessel_type)
+    VESSELS_DICT[name_key] = new_vessel
+    print(f"✓ Vaisseau '{name}' créé !")
+    
+    return new_vessel
+
+def delete_spaceship():
+    """Supprime un vaisseau existant."""
+    print("\n--- SUPPRESSION D'UN VAISSEAU ---")
+    
+    if not VESSELS_DICT:
+        print("Aucun vaisseau disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    print("Vaisseaux disponibles :")
+    vessels_list = list(VESSELS_DICT.keys())
+    for i, name in enumerate(vessels_list, 1):
+        print(f"{i}. {name.capitalize()}")
+    print("R. Retour au menu principal")
+    
+    choice = input(f"Choisir le vaisseau à supprimer (1-{len(vessels_list)}) ou R : ").upper()
+    
+    if choice == 'R':
+        return
+        
+    try:
+        index = int(choice) - 1
+        if 0 <= index < len(vessels_list):
+            vessel_key = vessels_list[index]
+            vessel = VESSELS_DICT[vessel_key]
+                        
+            # Retirer le vaisseau de toutes les flottes
+            for fleet in FLEETS_DICT.values():
+                if vessel in fleet._spaceships:
+                    fleet._spaceships.remove(vessel)
+                        
+            del VESSELS_DICT[vessel_key]
+            print(f"Vaisseau '{vessel._name}' supprimé !")
+            input("Appuyez sur Entrée pour continuer...")
+        else:
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+
+def create_fleet():
+    """Crée une nouvelle flotte."""
+    print("\n--- CREATION D'UNE NOUVELLE FLOTTE ---")
+    
+    name = input("Nom de la flotte (ou 'r' pour retour) : ")
+    if name.lower() == 'r':
+        return None
+        
+    name_key = name.lower()
+    
+    if name_key in FLEETS_DICT:
+        print("Ce nom existe déjà !")
+        return None
+        
+    new_fleet = Fleet(name, [])
+    FLEETS_DICT[name_key] = new_fleet
+    print(f"✓ Flotte '{name}' créée !")
+    input("Appuyez sur Entrée pour continuer...")
+    return new_fleet
+
+def delete_fleet():
+    """Supprime une flotte existante."""
+    print("\n--- SUPPRESSION D'UNE FLOTTE ---")
+    
+    if not FLEETS_DICT:
+        print("Aucune flotte disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    print("Flottes disponibles :")
+    fleets_list = list(FLEETS_DICT.keys())
+    for i, name in enumerate(fleets_list, 1):
+        print(f"{i}. {name.capitalize()}")
+    print("R. Retour au menu principal")
+    
+    choice = input(f"Choisir la flotte à supprimer (1-{len(fleets_list)}) ou R : ").upper()
+    
+    if choice == 'R':
+        return
+        
+    try:
+        index = int(choice) - 1
+        if 0 <= index < len(fleets_list):
+            fleet_key = fleets_list[index]
+            fleet = FLEETS_DICT[fleet_key]
+                        
+            # Confirmer la suppression
+            confirmation = input(f"Supprimer '{fleet._name}' et ses {len(fleet._spaceships)} vaisseaux ? (o/n) : ").lower()
+            if confirmation == 'o':
+                del FLEETS_DICT[fleet_key]
+                print(f"✓ Flotte '{fleet._name}' supprimée !")
+            else:
+                print("Suppression annulée.")
+            input("Appuyez sur Entrée pour continuer...")
+        else:
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+
+def add_vessel_to_fleet():
+    """Ajoute un vaisseau existant à une flotte."""
+    print("\n--- AJOUTER UN VAISSEAU A UNE FLOTTE ---")
+    
+    if not VESSELS_DICT:
+        print("Aucun vaisseau disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    if not FLEETS_DICT:
+        print("Aucune flotte disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    # Choisir le vaisseau
+    print("\nVaisseaux disponibles :")
+    vessels_list = list(VESSELS_DICT.keys())
+    for i, name in enumerate(vessels_list, 1):
+        print(f"{i}. {name.capitalize()}")
+    print("R. Retour au menu principal")
+    
+    choice_v = input(f"Choisir le vaisseau (1-{len(vessels_list)}) ou R : ").upper()
+    
+    if choice_v == 'R':
+        return
+        
+    try:
+        index_v = int(choice_v) - 1
+        if not (0 <= index_v < len(vessels_list)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+            
+        vessel = VESSELS_DICT[vessels_list[index_v]]
+                
+        # Choisir la flotte
+        print("\nFlottes disponibles :")
+        fleets_list = list(FLEETS_DICT.keys())
+        for i, name in enumerate(fleets_list, 1):
+            fleet = FLEETS_DICT[name]
+            print(f"{i}. {name.capitalize()} ({len(fleet._spaceships)}/15 vaisseaux)")
+        print("R. Retour au menu principal")
+        
+        choice_f = input(f"Choisir la flotte (1-{len(fleets_list)}) ou R : ").upper()
+        
+        if choice_f == 'R':
+            return
+            
+        index_f = int(choice_f) - 1
+        if not (0 <= index_f < len(fleets_list)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+            
+        fleet = FLEETS_DICT[fleets_list[index_f]]
+                
+        # Vérifier si le vaisseau est déjà dans cette flotte
+        if vessel in fleet._spaceships:
+            print(f"Le vaisseau '{vessel._name}' est déjà dans la flotte '{fleet._name}' !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+            
+        # Ajouter le vaisseau
+        fleet.append_spaceship(vessel)
+        print(f"✓ Vaisseau '{vessel._name}' ajouté à la flotte '{fleet._name}' !")
+        input("Appuyez sur Entrée pour continuer...")
+        
+    except ValueError:
+        print("❌ Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+
+def manage_vessel_crew(vessel: Spaceship):
+    """Menu de gestion de l'équipage d'un vaisseau."""
     while True:
-        print(f"\n--- GESTION DE L'EQUIPAGE : {vessel._name} ({len(vessel._crew)}/10) ---")
+        print(f"\n--- EQUIPAGE : {vessel._name} ({len(vessel._crew)}/10) ---")
         print("1. Afficher l'équipage")
         print("2. Ajouter un membre")
         print("3. Retirer un membre")
-        print("4. Retour au Menu Principal")
-        choice = input("Votre choix : ").upper()
+        print("4. Retour")
+        
+        choice = input("Votre choix : ")
+        
         if choice == '1':
             vessel.display_crew()
+            
         elif choice == '2':
-            print("\nSouhaitez-vous :")
-            print("1. Créer un nouveau membre")
+            print("\n1. Créer un nouveau membre")
             print("2. Ajouter un membre existant")
-            add_choice = input("Votre choix : ")
-            member_to_add = None
-            if add_choice == '1':
-                member_to_add = interactive_member_creation()
-            elif add_choice == '2': 
-                print("Membres disponibles :", ", ".join(available_members.keys()))
-                variable_member_name = input("Entrez le pseudo du membre à ajouter : ").lower()
-                member_to_add = available_members.get(variable_member_name)
-                member_to_add = available_members.get(variable_member_name)
-                if not (member_to_add and isinstance(member_to_add, (Operator, Mentalist))):
-                    print(f"Erreur : L'objet membre '{variable_member_name}' est introuvable ou n'est pas un membre valide.")
-                    member_to_add = None
-            if member_to_add:
-                vessel.append_member(member_to_add)
+            sub_choice = input("Votre choix : ")
+            
+            member = None
+            if sub_choice == '1':
+                member = create_member()
+            elif sub_choice == '2':
+                print("Membres disponibles :", ", ".join(MEMBERS_DICT.keys()))
+                pseudo = input("Pseudo du membre : ").lower()
+                member = MEMBERS_DICT.get(pseudo)
+                if not member:
+                    print("Membre introuvable !")
+                        
+            if member:
+                vessel.append_member(member)
+                        
         elif choice == '3':
-            lastname = input("Entrez le nom de famille du membre à retirer : ")
-            vessel.remove_member(lastname)
+            name = input("Nom de famille du membre à retirer : ")
+            vessel.remove_member(name)
+            
         elif choice == '4':
             break
         else:
-            print("Choix invalide. Veuillez réessayer.")
-            
-def display_menu():
-    print("\n-----------------MENU PRINCIPAL-----------------")
-    print("1. Gérer un Vaisseau")
-    print("2. Vérifier la Préparation de l'équipage afin de décoller")
-    print("3. Afficher les statistiques des Flottes")
-    print("4. Tester les actions de Membres")
-    print("5. Quitter")
-    print("--------------------------------------------------")
-            
-def main_menu():
-    vessels = {
-        '1': star_destroyer,
-        '2': amiral,
-        '3': hunter,
-        '4': x_wing
-    }
-    while True:
-        display_menu()
-        principal_choice = input("Entrez votre choix : ")
-        if principal_choice == '1':
-            print("\n--- GESTION DES VAISSEAUX ET FLOTTES ---")
-            print("1. Gérer l'équipage d'un vaisseau")
-            print("2. Créer un nouveau vaisseau et l'intégrer à une flotte")
-            print("3. Créer une nouvelle flotte")
-            print("4. Retour")
-            global_management_option = input("Votre choix : ").upper()
-            if global_management_option == '4':
-                continue
-            if global_management_option == '3':
-                interactive_fleet_creation()
-                continue
-            if global_management_option == '2':
-                interactive_vessel_creation()
-                continue
-            if global_management_option == '1':
-                if not available_vessels:
-                    print("Aucun Vaisseau disponible. Créez-en un d'abord.")
-                    continue
-                print("\nChoisir le vaisseau à gérer :")
-                vessels_keys = list(available_vessels.keys())
-                for i, name in enumerate(vessels_keys):
-                    print(f"{i+1}. {name.capitalize().ljust(LARGEUR_COLONNE_VAISSEAU)}", end="")
-                    if(i + 1) % COLONNES_VAISSEAU == 0:
-                        print()
-                if len(vessels_keys) % COLONNES_VAISSEAU != 0:
-                    print()
-                vessel_choice = input(f"Entrez le numéro (1-{len(vessels_keys)}) : ")
-                try:
-                    index_vessel = int(vessel_choice) - 1
-                    if 0 <= index_vessel < len(vessels_keys):
-                        ship_name_select = vessels_keys[index_vessel]
-                        select_vessel = available_vessels[ship_name_select]
-                        vessel_management_menu(select_vessel)
-                    else:
-                        print("Numéro de vaisseau invalide.")
-                except ValueError:
-                    print("Saisie invalide.")
-            else:
-                print("Choix invalide. Veuillez réessayer.")
-        elif principal_choice == '2':
-            print("\n--- VERIFICATION DE PREPARATION ---")
-            print("Choisir le Vaisseau à vérifier :")
-            vessels_keys = list(available_vessels.keys())
-            for i, name in enumerate(vessels_keys):
-                print(f"{i+1}. {name.capitalize().ljust(LARGEUR_COLONNE_VAISSEAU)}", end="")
-                if (i + 1) % COLONNES_VAISSEAU == 0:
-                    print()
-            if len(vessels_keys) % COLONNES_VAISSEAU != 0:
-                print()
-            vessel_choice = input(f"Entrez le numéro (1-{len(vessels_keys)}) (ou 'T' pour Tous) : ").upper()
-            if vessel_choice == 'T':
-                print("\n--- VERIFICATION DE TOUS LES VAISSEAUX ---")
-                for object_vessel in available_vessels.values():
-                    object_vessel.check_preparation()
-            else:
-                try:
-                    index_vessel = int(vessel_choice) - 1
-                    if 0 <= index_vessel < len(vessels_keys):
-                        ship_name_select = vessels_keys[index_vessel]
-                        vaisseau_selectionne = available_vessels[ship_name_select]
-                        print(f"\n--- VÉRIFICATION DU {vaisseau_selectionne._name.upper()} ---")
-                        select_vessel.check_preparation()
-                    else:
-                        print("Numéro de vaisseau invalide.")
-                except ValueError:
-                    print("Saisie invalide.")
-        elif principal_choice == '3':
-            print("\n--- STATISTIQUES DES FLOTTES ---")
-            if not available_fleets:
-                print("Aucune flotte disponible.")
-                continue    
-            for fleet in available_fleets.values():
-                fleet.statistics()
-        elif principal_choice == '4':
-            while True:
-                print("\n--- ACTIONS DES MEMBRES ---")
-                members_keys = list(available_members.keys())
-                colonnes = 4
-                print("Membres disponibles :")
-                for i, name in enumerate(members_keys):
-                    print(f"{name.ljust(12)}", end="")
-                    if (i + 1) % colonnes == 0:
-                        print()
-                if len(members_keys) % colonnes != 0:
-                    print()
-                print("1. Demander à un membre de se présenter")
-                print("2. Faire gagner de l'expérience à un Opérateur")
-                print("3. Retour au Menu Principal")
-                action_choice = input("Votre choix : ").upper()
-                if action_choice == '3':
-                    break
-                if action_choice in ['1', '2']:
-                    variable_member_name = input("Entrez le pseudo du membre : ").lower()
-                    object_member = available_members.get(variable_member_name)
-                    if not object_member or not isinstance(object_member, (Operator, Mentalist)):
-                        print(f"Erreur : L'objet membre '{variable_member_name}' est introuvable ou n'est pas un membre valide.")
-                        continue
-                    if action_choice == '1':
-                        try:
-                            object_member.introduce_yourself()
-                        except AttributeError:
-                            print(f"{object_member._first_name} ne possède pas de présentation.")
-                    elif action_choice == '2':
-                        if isinstance(object_member, Operator):
-                            try:
-                                object_member.gain_experience()
-                            except AttributeError:
-                                print(f"{object_member._first_name} est un Opérateur, mais ne possède d'expérience.")
-                        else: 
-                            print(f"Erreur : {object_member._first_name} {object_member._last_name} n'est pas un Opérateur et ne peut donc pas gagner d'expérience.")
-                else:
-                    print("Choix invalide. Veuillez réessayer.")
-            
+            print("Choix invalide !")
 
-        elif principal_choice == '5':
-            print("Extinction du système. Au revoir!")
+# ========== MENU PRINCIPAL FUNCTIONS ==========
+
+def display_main_menu():
+    """Affiche le menu principal."""
+    print("\n" + "="*50)
+    print("         GESTION DE FLOTTES SPATIALES")
+    print("="*50)
+    print("1. Créer un vaisseau")
+    print("2. Supprimer un vaisseau")
+    print("3. Créer une flotte")
+    print("4. Supprimer une flotte")
+    print("5. Ajouter un vaisseau à une flotte")
+    print("6. Gérer l'équipage d'un vaisseau")
+    print("7. Vérifier la préparation au décollage")
+    print("8. Afficher les statistiques des flottes")
+    print("9. Actions des membres")
+    print("10. Quitter")
+    print("="*50)
+
+def menu_manage_vessels():
+    """Menu pour gérer l'équipage d'un vaisseau."""
+    if not VESSELS_DICT:
+        print("Aucun vaisseau disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    print("\nVaisseaux disponibles :")
+    vessels_list = list(VESSELS_DICT.keys())
+    for i, name in enumerate(vessels_list, 1):
+        print(f"{i}. {name.capitalize()}")
+    print("R. Retour au menu principal")
+    
+    choice = input(f"Choisir (1-{len(vessels_list)}) ou R : ").upper()
+    
+    if choice == 'R':
+        return
+        
+    try:
+        index = int(choice) - 1
+        if 0 <= index < len(vessels_list):
+            vessel = VESSELS_DICT[vessels_list[index]]
+            manage_vessel_crew(vessel)
+        else:
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+
+def menu_verification():
+    """Vérification de la préparation des vaisseaux."""
+    print("\n--- VERIFICATION DE PREPARATION ---")
+    
+    if not VESSELS_DICT:
+        print("Aucun vaisseau disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    vessels_list = list(VESSELS_DICT.keys())
+    print("Vaisseaux disponibles :")
+    for i, name in enumerate(vessels_list, 1):
+        print(f"{i}. {name.capitalize()}")
+    print("T. Tous les vaisseaux")
+    print("R. Retour au menu principal")
+    
+    choice = input(f"Choisir (1-{len(vessels_list)}), T pour tous, ou R : ").upper()
+    
+    if choice == 'R':
+        return
+        
+    if choice == 'T':
+        print("\n--- VERIFICATION DE TOUS LES VAISSEAUX ---")
+        for vessel in VESSELS_DICT.values():
+            vessel.check_preparation()
+        input("\nAppuyez sur Entrée pour continuer...")
+    else:
+        try:
+            index = int(choice) - 1
+            if 0 <= index < len(vessels_list):
+                vessel = VESSELS_DICT[vessels_list[index]]
+                print(f"\n--- {vessel._name.upper()} ---")
+                vessel.check_preparation()
+                input("\nAppuyez sur Entrée pour continuer...")
+            else:
+                print("Numéro invalide !")
+                input("Appuyez sur Entrée pour continuer...")
+        except ValueError:
+            print("Saisie invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+
+def menu_statistics():
+    """Afficher les statistiques des flottes."""
+    print("\n--- STATISTIQUES DES FLOTTES ---")
+    
+    if not FLEETS_DICT:
+        print("❌ Aucune flotte disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+        
+    for fleet in FLEETS_DICT.values():
+        fleet.statistics()
+        input("\nAppuyez sur Entrée pour continuer...")
+
+def menu_member_actions():
+    """Menu des actions des membres."""
+    while True:
+        print("\n--- ACTIONS DES MEMBRES ---")
+        
+        if not MEMBERS_DICT:
+            print("❌ Aucun membre disponible !")
+            return
+                
+        print("Membres disponibles :")
+        display_list_in_columns(list(MEMBERS_DICT.keys()))
+                
+        print("\n1. Présentation d'un membre")
+        print("2. Gagner de l'expérience (Opérateur)")
+        print("3. Retour")
+        
+        choice = input("Votre choix : ")
+        
+        if choice == '3':
+            break
+            
+        if choice in ['1', '2']:
+            pseudo = input("Pseudo du membre : ").lower()
+            member = MEMBERS_DICT.get(pseudo)
+                        
+            if not member:
+                print("Membre introuvable !")
+                continue
+                        
+            if choice == '1':
+                if hasattr(member, 'introduce_yourself'):
+                    member.introduce_yourself()
+                else:
+                    print(f"{member._first_name} ne peut pas se présenter.")
+                                
+            elif choice == '2':
+                if isinstance(member, Operator):
+                    member.gain_experience()
+                else:
+                    print(f"{member._first_name} n'est pas un Opérateur !")
+        else:
+            print("Choix invalide !")
+
+def main_program_loop():
+    """Boucle principale du programme."""
+    while True:
+        display_main_menu()
+        choice = input("Votre choix : ")
+        
+        if choice == '1':
+            create_spaceship()
+        elif choice == '2':
+            delete_spaceship()
+        elif choice == '3':
+            create_fleet()
+        elif choice == '4':
+            delete_fleet()
+        elif choice == '5':
+            add_vessel_to_fleet()
+        elif choice == '6':
+            menu_manage_vessels()
+        elif choice == '7':
+            menu_verification()
+        elif choice == '8':
+            menu_statistics()
+        elif choice == '9':
+            menu_member_actions()
+        elif choice == '10':
+            print("\nAu revoir !")
             break
         else:
-            print("Choix invalide. Veuillez entrer un numéro entre 1 et 5.")
-            
-            
+            print("Choix invalide ! Entrez un numéro entre 1 et 10.")
+
+# ========== LANCEMENT DU PROGRAMME ==========
 if __name__ == "__main__":
-    main_menu()
+    main_program_loop()
