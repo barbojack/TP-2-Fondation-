@@ -1,0 +1,821 @@
+{
+    "members": {},
+    "vessels": {
+        "star_destroyer": {
+            "__class__": "Spaceship",
+            "__module__": "classes.Spaceship",
+            "_Spaceship__name": "Star Destroyer",
+            "_crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Charif",
+                    "_Member__last_name": "El Bakkali",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Operator__role": "homme de m\u00e9nage",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Chris",
+                    "_Member__last_name": "Chevalier",
+                    "_Member__gender": "homme",
+                    "_Member__age": 33,
+                    "_Operator__role": "armurier",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Khalil",
+                    "_Member__last_name": "Serdoun",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 1
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Paul",
+                    "_Member__last_name": "VAN de WALLE",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Mentalist__mana": 10000
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Anakin",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "homme",
+                    "_Member__age": 26,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                }
+            ],
+            "_Spaceship__shipType": "Vaisseau de Combat",
+            "_Spaceship__condition": "op\u00e9rationnel",
+            "_Spaceship__crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Charif",
+                    "_Member__last_name": "El Bakkali",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Operator__role": "homme de m\u00e9nage",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Chris",
+                    "_Member__last_name": "Chevalier",
+                    "_Member__gender": "homme",
+                    "_Member__age": 33,
+                    "_Operator__role": "armurier",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Khalil",
+                    "_Member__last_name": "Serdoun",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 1
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Paul",
+                    "_Member__last_name": "VAN de WALLE",
+                    "_Member__gender": "homme",
+                    "_Member__age": 19,
+                    "_Mentalist__mana": 10000
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Anakin",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "homme",
+                    "_Member__age": 26,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                }
+            ]
+        },
+        "hunter": {
+            "__class__": "Spaceship",
+            "__module__": "classes.Spaceship",
+            "_Spaceship__name": "Hunter",
+            "_crew": [
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Dark",
+                    "_Member__last_name": "Sidious",
+                    "_Member__gender": "homme",
+                    "_Member__age": 50,
+                    "_Mentalist__mana": 100
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Trooper",
+                    "_Member__last_name": "Ang",
+                    "_Member__gender": "homme",
+                    "_Member__age": 25,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                }
+            ],
+            "_Spaceship__shipType": "Vaisseau de Combat",
+            "_Spaceship__condition": "op\u00e9rationnel",
+            "_Spaceship__crew": [
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Dark",
+                    "_Member__last_name": "Sidious",
+                    "_Member__gender": "homme",
+                    "_Member__age": 50,
+                    "_Mentalist__mana": 100
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Trooper",
+                    "_Member__last_name": "Ang",
+                    "_Member__gender": "homme",
+                    "_Member__age": 25,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                }
+            ]
+        },
+        "amiral": {
+            "__class__": "Spaceship",
+            "__module__": "classes.Spaceship",
+            "_Spaceship__name": "Amiral",
+            "_crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Ma\u00eetre",
+                    "_Member__last_name": "Yoda",
+                    "_Member__gender": "homme",
+                    "_Member__age": 100,
+                    "_Operator__role": "commandant",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Leia",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "femme",
+                    "_Member__age": 18,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "C3PO",
+                    "_Member__last_name": "",
+                    "_Member__gender": "droide",
+                    "_Member__age": 30,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Obi-Wan",
+                    "_Member__last_name": "Kenobi",
+                    "_Member__gender": "homme",
+                    "_Member__age": 30,
+                    "_Mentalist__mana": 100
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Luke",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "homme",
+                    "_Member__age": 18,
+                    "_Mentalist__mana": 100
+                }
+            ],
+            "_Spaceship__shipType": "Vaisseau de Commandement",
+            "_Spaceship__condition": "op\u00e9rationnel",
+            "_Spaceship__crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Ma\u00eetre",
+                    "_Member__last_name": "Yoda",
+                    "_Member__gender": "homme",
+                    "_Member__age": 100,
+                    "_Operator__role": "commandant",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Leia",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "femme",
+                    "_Member__age": 18,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "C3PO",
+                    "_Member__last_name": "",
+                    "_Member__gender": "droide",
+                    "_Member__age": 30,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Obi-Wan",
+                    "_Member__last_name": "Kenobi",
+                    "_Member__gender": "homme",
+                    "_Member__age": 30,
+                    "_Mentalist__mana": 100
+                },
+                {
+                    "__class__": "Mentalist",
+                    "__module__": "classes.Mentalist",
+                    "_Member__first_name": "Luke",
+                    "_Member__last_name": "Skywalker",
+                    "_Member__gender": "homme",
+                    "_Member__age": 18,
+                    "_Mentalist__mana": 100
+                }
+            ]
+        },
+        "x_wing": {
+            "__class__": "Spaceship",
+            "__module__": "classes.Spaceship",
+            "_Spaceship__name": "X-Wing",
+            "_crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Poe",
+                    "_Member__last_name": "Dameron",
+                    "_Member__gender": "homme",
+                    "_Member__age": 30,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "R2D2",
+                    "_Member__last_name": "",
+                    "_Member__gender": "droide",
+                    "_Member__age": 20,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                }
+            ],
+            "_Spaceship__shipType": "Vaisseau de Combat",
+            "_Spaceship__condition": "op\u00e9rationnel",
+            "_Spaceship__crew": [
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "Poe",
+                    "_Member__last_name": "Dameron",
+                    "_Member__gender": "homme",
+                    "_Member__age": 30,
+                    "_Operator__role": "pilote",
+                    "_Operator__experience": 0
+                },
+                {
+                    "__class__": "Operator",
+                    "__module__": "classes.Operator",
+                    "_Member__first_name": "R2D2",
+                    "_Member__last_name": "",
+                    "_Member__gender": "droide",
+                    "_Member__age": 20,
+                    "_Operator__role": "technicien",
+                    "_Operator__experience": 0
+                }
+            ]
+        }
+    },
+    "fleets": {
+        "sith": {
+            "__class__": "Fleet",
+            "__module__": "classes.Fleet",
+            "_spaceships": [
+                {
+                    "_Spaceship__name": "Star Destroyer",
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Charif",
+                            "_Member__last_name": "El Bakkali",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "homme de m\u00e9nage",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Chris",
+                            "_Member__last_name": "Chevalier",
+                            "_Member__gender": "homme",
+                            "_Member__age": 33,
+                            "_Operator__role": "armurier",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Khalil",
+                            "_Member__last_name": "Serdoun",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 1
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Paul",
+                            "_Member__last_name": "VAN de WALLE",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Mentalist__mana": 10000
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Anakin",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 26,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                },
+                {
+                    "_Spaceship__name": "Hunter",
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Dark",
+                            "_Member__last_name": "Sidious",
+                            "_Member__gender": "homme",
+                            "_Member__age": 50,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Trooper",
+                            "_Member__last_name": "Ang",
+                            "_Member__gender": "homme",
+                            "_Member__age": 25,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                }
+            ],
+            "_Fleet__name": "Sith",
+            "spaceships": [
+                {
+                    "__class__": "Spaceship",
+                    "__module__": "classes.Spaceship",
+                    "_Spaceship__name": "Star Destroyer",
+                    "_crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Charif",
+                            "_Member__last_name": "El Bakkali",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "homme de m\u00e9nage",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Chris",
+                            "_Member__last_name": "Chevalier",
+                            "_Member__gender": "homme",
+                            "_Member__age": 33,
+                            "_Operator__role": "armurier",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Khalil",
+                            "_Member__last_name": "Serdoun",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 1
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Paul",
+                            "_Member__last_name": "VAN de WALLE",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Mentalist__mana": 10000
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Anakin",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 26,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        }
+                    ],
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Charif",
+                            "_Member__last_name": "El Bakkali",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "homme de m\u00e9nage",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Chris",
+                            "_Member__last_name": "Chevalier",
+                            "_Member__gender": "homme",
+                            "_Member__age": 33,
+                            "_Operator__role": "armurier",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Khalil",
+                            "_Member__last_name": "Serdoun",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 1
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Paul",
+                            "_Member__last_name": "VAN de WALLE",
+                            "_Member__gender": "homme",
+                            "_Member__age": 19,
+                            "_Mentalist__mana": 10000
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Anakin",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 26,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                },
+                {
+                    "__class__": "Spaceship",
+                    "__module__": "classes.Spaceship",
+                    "_Spaceship__name": "Hunter",
+                    "_crew": [
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Dark",
+                            "_Member__last_name": "Sidious",
+                            "_Member__gender": "homme",
+                            "_Member__age": 50,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Trooper",
+                            "_Member__last_name": "Ang",
+                            "_Member__gender": "homme",
+                            "_Member__age": 25,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ],
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Dark",
+                            "_Member__last_name": "Sidious",
+                            "_Member__gender": "homme",
+                            "_Member__age": 50,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Trooper",
+                            "_Member__last_name": "Ang",
+                            "_Member__gender": "homme",
+                            "_Member__age": 25,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        "republic": {
+            "__class__": "Fleet",
+            "__module__": "classes.Fleet",
+            "_spaceships": [
+                {
+                    "_Spaceship__name": "Amiral",
+                    "_Spaceship__shipType": "Vaisseau de Commandement",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Ma\u00eetre",
+                            "_Member__last_name": "Yoda",
+                            "_Member__gender": "homme",
+                            "_Member__age": 100,
+                            "_Operator__role": "commandant",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Leia",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "femme",
+                            "_Member__age": 18,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "C3PO",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 30,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Obi-Wan",
+                            "_Member__last_name": "Kenobi",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Luke",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 18,
+                            "_Mentalist__mana": 100
+                        }
+                    ]
+                },
+                {
+                    "_Spaceship__name": "X-Wing",
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Poe",
+                            "_Member__last_name": "Dameron",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "R2D2",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 20,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                }
+            ],
+            "_Fleet__name": "Republic",
+            "spaceships": [
+                {
+                    "__class__": "Spaceship",
+                    "__module__": "classes.Spaceship",
+                    "_Spaceship__name": "Amiral",
+                    "_crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Ma\u00eetre",
+                            "_Member__last_name": "Yoda",
+                            "_Member__gender": "homme",
+                            "_Member__age": 100,
+                            "_Operator__role": "commandant",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Leia",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "femme",
+                            "_Member__age": 18,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "C3PO",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 30,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Obi-Wan",
+                            "_Member__last_name": "Kenobi",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Luke",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 18,
+                            "_Mentalist__mana": 100
+                        }
+                    ],
+                    "_Spaceship__shipType": "Vaisseau de Commandement",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Ma\u00eetre",
+                            "_Member__last_name": "Yoda",
+                            "_Member__gender": "homme",
+                            "_Member__age": 100,
+                            "_Operator__role": "commandant",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Leia",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "femme",
+                            "_Member__age": 18,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "C3PO",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 30,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Obi-Wan",
+                            "_Member__last_name": "Kenobi",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Mentalist__mana": 100
+                        },
+                        {
+                            "__class__": "Mentalist",
+                            "__module__": "classes.Mentalist",
+                            "_Member__first_name": "Luke",
+                            "_Member__last_name": "Skywalker",
+                            "_Member__gender": "homme",
+                            "_Member__age": 18,
+                            "_Mentalist__mana": 100
+                        }
+                    ]
+                },
+                {
+                    "__class__": "Spaceship",
+                    "__module__": "classes.Spaceship",
+                    "_Spaceship__name": "X-Wing",
+                    "_crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Poe",
+                            "_Member__last_name": "Dameron",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "R2D2",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 20,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ],
+                    "_Spaceship__shipType": "Vaisseau de Combat",
+                    "_Spaceship__condition": "op\u00e9rationnel",
+                    "_Spaceship__crew": [
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "Poe",
+                            "_Member__last_name": "Dameron",
+                            "_Member__gender": "homme",
+                            "_Member__age": 30,
+                            "_Operator__role": "pilote",
+                            "_Operator__experience": 0
+                        },
+                        {
+                            "__class__": "Operator",
+                            "__module__": "classes.Operator",
+                            "_Member__first_name": "R2D2",
+                            "_Member__last_name": "",
+                            "_Member__gender": "droide",
+                            "_Member__age": 20,
+                            "_Operator__role": "technicien",
+                            "_Operator__experience": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
