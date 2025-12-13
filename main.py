@@ -8,8 +8,6 @@ import json
 import os
 
 
-
-
 # ========== CREATION DES MEMBRES ==========
 chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
 charif = Operator("Charif", "El Bakkali", "homme", 19, "homme de ménage")
@@ -296,6 +294,53 @@ def create_member():                                #Crée un nouveau membre (Op
     else:
         print("Choix invalide !")
         return None
+    
+def delete_member():                                   #Supprime un membre (Operator ou Mentalist) du système.
+    print("\n--- SUPPRESSION D'UN MEMBRE ---")
+    if not MEMBERS_DICT:
+        print("Aucun membre disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+    print("Membres disponibles :")
+    members_list = list(MEMBERS_DICT.keys())
+    for i, pseudo in enumerate(members_list, 1):
+        member = MEMBERS_DICT[pseudo]
+        member_type = "Opérateur" if isinstance(member, Operator) else "Mentaliste"
+        print(f"{i}. {pseudo} - {member._first_name} {member._last_name} ({member_type})")
+    print("R. Retour au menu principal")
+    choice = input(f"Choisir le membre à supprimer (1-{len(members_list)}) ou R : ").upper()
+    if choice == "R":
+        return
+    try:
+        index = int(choice) - 1
+        if not (0 <= index < len(members_list)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+        pseudo = members_list[index]
+        member = MEMBERS_DICT[pseudo]
+        member_in_vessels = []        # Vérifier si le membre est dans un vaisseau
+        for vessel_key, vessel in VESSELS_DICT.items():
+            if member in vessel._crew:
+                member_in_vessels.append(vessel._name)
+        if member_in_vessels:
+            print(f"\n{member._first_name} {member._last_name} est actuellement dans :")
+            for vessel_name in member_in_vessels:
+                print(f"   - {vessel_name}")            
+            confirm = input("\nRetirer ce membre de tous les vaisseaux et le supprimer ? (o/n) : ").lower()
+            if confirm != "o":
+                print("Suppression annulée.")
+                input("Appuyez sur Entrée pour continuer...")
+                return
+            for vessel in VESSELS_DICT.values():            # Retirer le membre de tous les vaisseaux
+                if member in vessel._crew:
+                    vessel._crew.remove(member)
+        del MEMBERS_DICT[pseudo]        # Supprimer le membre du dictionnaire
+        print(f"✓ {member._first_name} {member._last_name} a été supprimé du système !")
+        input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
 
 
 def create_spaceship():                                  #Crée un nouveau vaisseau.
@@ -620,13 +665,15 @@ def display_main_menu():                                 #Affiche le menu princi
     print("5. Supprimer une flotte")
     print("6. Modifier une flotte")
     print("7. Ajouter un vaisseau à une flotte")
-    print("8. Gérer l'équipage d'un vaisseau")
-    print("9. Vérifier la préparation au décollage")
-    print("10. Afficher les statistiques des flottes")
-    print("11. Actions des membres")
-    print("12. Sauvegarder l'état de votre jeu")
-    print("13. Charger une sauvegarde du jeu")
-    print("14. Quitter")
+    print("8. Créer un membre")
+    print("9. Supprimer un membre")
+    print("10. Gérer l'équipage d'un vaisseau")
+    print("11. Vérifier la préparation au décollage")
+    print("12. Afficher les statistiques des flottes")
+    print("13. Actions des membres")
+    print("14. Sauvegarder l'état de votre jeu")
+    print("15. Charger une sauvegarde du jeu")
+    print("16. Quitter")
     print("=" * 50)
 
 
@@ -757,18 +804,22 @@ def main_program_loop():                                 #Boucle principale du p
         elif choice == "7":
             add_vessel_to_fleet()
         elif choice == "8":
-            menu_manage_vessels()
+            create_member()
         elif choice == "9":
-            menu_verification()
+            delete_member()
         elif choice == "10":
-            menu_statistics()
+            menu_manage_vessels()
         elif choice == "11":
-            menu_member_actions()
+            menu_verification()
         elif choice == "12":
-            save_program_state()
+            menu_statistics()
         elif choice == "13":
-            load_program_state()
+            menu_member_actions()
         elif choice == "14":
+            save_program_state()
+        elif choice == "15":
+            load_program_state()
+        elif choice == "16":
             print("\nAu revoir !")
             break
         else:
