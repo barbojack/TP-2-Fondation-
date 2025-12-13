@@ -245,6 +245,47 @@ for name, obj in list(globals().items()):             # Remplir automatiquement 
         VESSELS_DICT[name.lower()] = obj
     elif isinstance(obj, Fleet):
         FLEETS_DICT[name.lower()] = obj
+        
+def delete_save_file():                                   #Supprime un fichier de sauvegarde.
+    print("\n--- SUPPRESSION D'UNE SAUVEGARDE ---")
+    save_files = [f for f in os.listdir('.') if f.endswith('.json')]       # Lister les fichiers de sauvegarde disponibles
+    if not save_files:
+        print("Aucun fichier de sauvegarde trouvé !")
+        input("Appuyez sur Entrée pour continuer...")
+        return False    
+    print("Fichiers de sauvegarde disponibles :")
+    for i, file in enumerate(save_files, 1):
+        file_size = os.path.getsize(file) / 1024          # Afficher la taille du fichier, Taille en Ko
+        print(f"{i}. {file} ({file_size:.1f} Ko)")
+    print("R. Retour au menu principal")   
+    choice = input(f"Choisir le fichier à supprimer (1-{len(save_files)}) ou R : ").upper()    
+    if choice == 'R':
+        return False    
+    try:
+        index = int(choice) - 1
+        if not (0 <= index < len(save_files)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return False       
+        filename = save_files[index]
+        print(f"\nATTENTION : Cette action est irréversible !")        # Confirmation avant de supprimer
+        confirm = input(f"Supprimer définitivement '{filename}' ? (o/n) : ").lower()      
+        if confirm != 'o':
+            print("Suppression annulée.")
+            input("Appuyez sur Entrée pour continuer...")
+            return False
+        os.remove(filename)        # Supprimer le fichier
+        print(f"Sauvegarde '{filename}' supprimée avec succès !")
+        input("\nAppuyez sur Entrée pour continuer...")
+        return True        
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+        return False
+    except OSError as e:
+        print(f"Erreur lors de la suppression : {e}")
+        input("Appuyez sur Entrée pour continuer...")
+        return False
 
 # ========== FONCTIONS UTILITAIRES ==========
 
@@ -673,7 +714,8 @@ def display_main_menu():                                 #Affiche le menu princi
     print("13. Actions des membres")
     print("14. Sauvegarder l'état de votre jeu")
     print("15. Charger une sauvegarde du jeu")
-    print("16. Quitter")
+    print("16. supprimer une sauvegarde du jeu")
+    print("17. Quitter")
     print("=" * 50)
 
 
@@ -750,38 +792,57 @@ def menu_statistics():                                          #Afficher les st
         input("\nAppuyez sur Entrée pour continuer...")
 
 
-def menu_member_actions():                                       #Menu des actions des membres.
+def menu_member_actions():                                  #Menu des actions des membres.
     while True:
         print("\n--- ACTIONS DES MEMBRES ---")
         if not MEMBERS_DICT:
             print("Aucun membre disponible !")
+            input("Appuyez sur Entrée pour continuer...")
             return
-        print("Membres disponibles :")
-        display_list_in_columns(list(MEMBERS_DICT.keys()))
         print("\n1. Présentation d'un membre")
         print("2. Gagner de l'expérience (Opérateur)")
         print("3. Retour")
         choice = input("Votre choix : ")
         if choice == "3":
             break
-        if choice in ["1", "2"]:
-            pseudo = input("Pseudo du membre : ").lower()
+        if choice == "1":
+            print("\nMembres disponibles :")
+            display_list_in_columns(list(MEMBERS_DICT.keys()))           
+            pseudo = input("\nPseudo du membre : ").lower()
             member = MEMBERS_DICT.get(pseudo)
             if not member:
                 print("Membre introuvable !")
+                input("Appuyez sur Entrée pour continuer...")
                 continue
-            if choice == "1":
-                if hasattr(member, "introduce_yourself"):
-                    member.introduce_yourself()
-                else:
-                    print(f"{member._first_name} ne peut pas se présenter.")
-            elif choice == "2":
-                if isinstance(member, Operator):
-                    member.gain_experience()
-                else:
-                    print(f"{member._first_name} n'est pas un Opérateur !")
+            if hasattr(member, "introduce_yourself"):
+                member.introduce_yourself()
+                input("\nAppuyez sur Entrée pour continuer...")
+            else:
+                print(f"{member._first_name} ne peut pas se présenter.")
+                input("Appuyez sur Entrée pour continuer...")
+        elif choice == "2":
+            # Filtrer uniquement les Opérateurs
+            operators_dict = {pseudo: member for pseudo, member in MEMBERS_DICT.items() if isinstance(member, Operator)}           
+            if not operators_dict:
+                print("Aucun Opérateur disponible !")
+                input("Appuyez sur Entrée pour continuer...")
+                continue           
+            print("\nOpérateurs disponibles :")
+            operators_list = list(operators_dict.keys())
+            for i, pseudo in enumerate(operators_list, 1):
+                operator = operators_dict[pseudo]
+                print(f"{i}. {pseudo} - {operator._first_name} {operator._last_name} ({operator._role}) [XP: {operator._experience}]")           
+            pseudo = input("\nPseudo de l'Opérateur : ").lower()
+            operator = operators_dict.get(pseudo)
+            if not operator:
+                print(f"Opérateur '{pseudo}' introuvable !")
+                input("Appuyez sur Entrée pour continuer...")
+                continue
+            operator.gain_experience()
+            input("\nAppuyez sur Entrée pour continuer...")
         else:
             print("Choix invalide !")
+            input("Appuyez sur Entrée pour continuer...")
 
 
 def main_program_loop():                                 #Boucle principale du programme.
@@ -820,6 +881,8 @@ def main_program_loop():                                 #Boucle principale du p
         elif choice == "15":
             load_program_state()
         elif choice == "16":
+            delete_save_file()
+        elif choice == "17":
             print("\nAu revoir !")
             break
         else:
