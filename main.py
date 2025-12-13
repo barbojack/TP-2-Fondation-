@@ -86,6 +86,7 @@ MEMBERS_DICT: Dict[str, Any] = {}
 VESSELS_DICT: Dict[str, Spaceship] = {}
 FLEETS_DICT: Dict[str, Fleet] = {}
 
+
 # ========== FONCTIONS DE SAUVEGARDE/CHARGEMENT ==========
 
 def save_program_state():                          #Sauvegarde l'état complet du programme dans un fichier JSON.
@@ -346,6 +347,74 @@ def delete_spaceship():                           #Supprime un vaisseau existant
     except ValueError:
         print("Saisie invalide !")
         input("Appuyez sur Entrée pour continuer...")
+        
+def modify_spaceship():                                #Modifie le nom ou le type d'un vaisseau existant.
+    print("\n--- MODIFICATION D'UN VAISSEAU ---")
+    if not VESSELS_DICT:
+        print("Aucun vaisseau disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+    print("Vaisseaux disponibles :")
+    vessels_list = list(VESSELS_DICT.keys())
+    for i, name in enumerate(vessels_list, 1):
+        vessel = VESSELS_DICT[name]
+        print(f"{i}. {vessel._name} ({vessel._shipType})")
+    print("R. Retour au menu principal")
+    choice = input(f"Choisir le vaisseau à modifier (1-{len(vessels_list)}) ou R : ").upper()
+    if choice == "R":
+        return
+    try:
+        index = int(choice) - 1
+        if not (0 <= index < len(vessels_list)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+        vessel_key = vessels_list[index]
+        vessel = VESSELS_DICT[vessel_key]
+        print(f"\n--- Modification de '{vessel._name}' ---")
+        print("1. Modifier le nom")
+        print("2. Modifier le type")
+        print("3. Modifier les deux")
+        print("4. Annuler")
+        sub_choice = input("Votre choix : ")
+        if sub_choice == "4":
+            return
+        new_name = None
+        new_type = None
+        if sub_choice in ["1", "3"]:
+            new_name = input(f"Nouveau nom (actuel: {vessel._name}) : ").strip()
+            if not new_name:
+                print("Le nom ne peut pas être vide !")
+                input("Appuyez sur Entrée pour continuer...")
+                return
+        if sub_choice in ["2", "3"]:
+            new_type = input(f"Nouveau type (actuel: {vessel._shipType}) : ").strip()
+            if not new_type:
+                print("Le type ne peut pas être vide !")
+                input("Appuyez sur Entrée pour continuer...")
+                return
+        if new_name:        # Appliquer les modifications
+            old_name = vessel._name
+            vessel._name = new_name            
+            new_key = new_name.lower().replace(" ", "_")                        # Mettre à jour la clé dans le dictionnaire
+            if new_key != vessel_key and new_key not in VESSELS_DICT:
+                VESSELS_DICT[new_key] = vessel
+                del VESSELS_DICT[vessel_key]
+                print(f"Nom modifié : '{old_name}' → '{new_name}'")
+            elif new_key in VESSELS_DICT:
+                print(f"Un vaisseau avec ce nom existe déjà !")
+                vessel._name = old_name  # Annuler
+                input("Appuyez sur Entrée pour continuer...")
+                return
+        if new_type:
+            old_type = vessel._shipType
+            vessel._shipType = new_type
+            print(f"Type modifié : '{old_type}' → '{new_type}'")
+        print(f"\nVaisseau modifié avec succès !")
+        input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
 
 
 def create_fleet():                                       #Crée une nouvelle flotte.
@@ -397,6 +466,53 @@ def delete_fleet():                                       #Supprime une flotte e
         else:
             print("Numéro invalide !")
             input("Appuyez sur Entrée pour continuer...")
+    except ValueError:
+        print("Saisie invalide !")
+        input("Appuyez sur Entrée pour continuer...")
+        
+def modify_fleet():                                #Modifie le nom d'une flotte existante.
+    print("\n--- MODIFICATION D'UNE FLOTTE ---")
+    if not FLEETS_DICT:
+        print("Aucune flotte disponible !")
+        input("Appuyez sur Entrée pour continuer...")
+        return
+    print("Flottes disponibles :")
+    fleets_list = list(FLEETS_DICT.keys())
+    for i, name in enumerate(fleets_list, 1):
+        fleet = FLEETS_DICT[name]
+        print(f"{i}. {fleet._name} ({len(fleet._spaceships)} vaisseaux)")
+    print("R. Retour au menu principal")
+    choice = input(f"Choisir la flotte à modifier (1-{len(fleets_list)}) ou R : ").upper()
+    if choice == "R":
+        return
+    try:
+        index = int(choice) - 1
+        if not (0 <= index < len(fleets_list)):
+            print("Numéro invalide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+        fleet_key = fleets_list[index]
+        fleet = FLEETS_DICT[fleet_key]
+        print(f"\n--- Modification de '{fleet._name}' ---")
+        new_name = input(f"Nouveau nom (actuel: {fleet._name}) : ").strip()
+        if not new_name:
+            print("Le nom ne peut pas être vide !")
+            input("Appuyez sur Entrée pour continuer...")
+            return
+        old_name = fleet._name        # Appliquer la modification
+        fleet._name = new_name
+        new_key = new_name.lower()        # Mettre à jour la clé dans le dictionnaire
+        if new_key != fleet_key and new_key not in FLEETS_DICT:
+            FLEETS_DICT[new_key] = fleet
+            del FLEETS_DICT[fleet_key]
+            print(f"Nom modifié : '{old_name}' → '{new_name}'")
+        elif new_key in FLEETS_DICT:
+            print(f"Une flotte avec ce nom existe déjà !")
+            fleet._name = old_name  # Annuler
+            input("Appuyez sur Entrée pour continuer...")
+            return
+        print(f"\nFlotte modifiée avec succès !")
+        input("Appuyez sur Entrée pour continuer...")
     except ValueError:
         print("Saisie invalide !")
         input("Appuyez sur Entrée pour continuer...")
@@ -499,16 +615,18 @@ def display_main_menu():                                 #Affiche le menu princi
     print("=" * 50)
     print("1. Créer un vaisseau")
     print("2. Supprimer un vaisseau")
-    print("3. Créer une flotte")
-    print("4. Supprimer une flotte")
-    print("5. Ajouter un vaisseau à une flotte")
-    print("6. Gérer l'équipage d'un vaisseau")
-    print("7. Vérifier la préparation au décollage")
-    print("8. Afficher les statistiques des flottes")
-    print("9. Actions des membres")
-    print("10. Sauvegarder l'état de votre jeu")
-    print("11. Charger une sauvegarde du jeu")
-    print("12. Quitter")
+    print("3. Modifier un vaisseau")
+    print("4. Créer une flotte")
+    print("5. Supprimer une flotte")
+    print("6. Modifier une flotte")
+    print("7. Ajouter un vaisseau à une flotte")
+    print("8. Gérer l'équipage d'un vaisseau")
+    print("9. Vérifier la préparation au décollage")
+    print("10. Afficher les statistiques des flottes")
+    print("11. Actions des membres")
+    print("12. Sauvegarder l'état de votre jeu")
+    print("13. Charger une sauvegarde du jeu")
+    print("14. Quitter")
     print("=" * 50)
 
 
@@ -629,28 +747,32 @@ def main_program_loop():                                 #Boucle principale du p
         elif choice == "2":
             delete_spaceship()
         elif choice == "3":
-            create_fleet()
+            modify_spaceship()
         elif choice == "4":
-            delete_fleet()
+            create_fleet()
         elif choice == "5":
-            add_vessel_to_fleet()
+            delete_fleet()
         elif choice == "6":
-            menu_manage_vessels()
+            modify_fleet()
         elif choice == "7":
-            menu_verification()
+            add_vessel_to_fleet()
         elif choice == "8":
-            menu_statistics()
+            menu_manage_vessels()
         elif choice == "9":
-            menu_member_actions()
+            menu_verification()
         elif choice == "10":
-            save_program_state()
+            menu_statistics()
         elif choice == "11":
-            load_program_state()
+            menu_member_actions()
         elif choice == "12":
+            save_program_state()
+        elif choice == "13":
+            load_program_state()
+        elif choice == "14":
             print("\nAu revoir !")
             break
         else:
-            print("Choix invalide ! Entrez un numéro entre 1 et 12.")
+            print("Choix invalide ! Entrez un numéro entre 1 et 14.")
 
 
 # ========== LANCEMENT DU PROGRAMME ==========
