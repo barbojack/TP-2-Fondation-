@@ -2,6 +2,7 @@ from classes.Member import *
 from classes.Operator import *
 from classes.Mentalist import *
 
+
 class Spaceship:
 
     def __init__(self, name, shipType):
@@ -41,12 +42,14 @@ class Spaceship:
     @_crew.setter
     def _crew(self, value):
         self.__crew = value  # Fin des getters / setters
-        
+
     # Fonction permettant d'ajouter un membre à l'équipage
 
     def append_member(self, member):
         if not isinstance(member, (Operator, Mentalist)):
-            print(f"Impossible d'ajouter ce membre : il doit être de type Operator ou Mentalist.")
+            print(
+                f"Impossible d'ajouter ce membre : il doit être de type Operator ou Mentalist."
+            )
             return False
         if len(self._crew) >= 10:
             try:
@@ -68,37 +71,47 @@ class Spaceship:
             )
             return True
 
-    # Fonction permettant de retirer un membre de l'équipage 
+    # Fonction permettant de retirer un membre de l'équipage
 
-    def remove_member(self, lastname):               # Recherche un membre de l'équipage par son nom de famille et le retire s'il est trouvé.
+    def remove_member(
+        self, lastname
+    ):  # Recherche un membre de l'équipage par son nom de famille et le retire s'il est trouvé.
         member_to_remove = None
         for member in self._crew:
             try:
                 if member._last_name.lower() == lastname.lower():
                     member_to_remove = member
-                    break                                       # Arrête la boucle si un membre est trouvé
-            except AttributeError:                              # Gère le cas où un objet dans la liste n'aurait pas l'attribut _last_name
+                    break  # Arrête la boucle si un membre est trouvé
+            except (
+                AttributeError
+            ):  # Gère le cas où un objet dans la liste n'aurait pas l'attribut _last_name
                 continue
         if member_to_remove:
-            print(f"{member_to_remove._first_name} {member_to_remove._last_name} a été retiré de l'équipage du {self._name}.")
+            print(
+                f"{member_to_remove._first_name} {member_to_remove._last_name} a été retiré de l'équipage du {self._name}."
+            )
             self._crew.remove(member_to_remove)
             try:
                 first_name = member_to_remove._first_name
-            except AttributeError:                  
+            except AttributeError:
                 first_name = ""
-            print(f"{first_name} {lastname} a été retiré de l'équipage du {self._name}. (Equipage: {len(self._crew)}/10)")
+            print(
+                f"{first_name} {lastname} a été retiré de l'équipage du {self._name}. (Equipage: {len(self._crew)}/10)"
+            )
             return True
         else:
-            print(f"Erreur : Le membre avec le nom de famille '{lastname}' n'a pas été trouvé dans l'équipage du {self._name}.")
-            return False 
+            print(
+                f"Erreur : Le membre avec le nom de famille '{lastname}' n'a pas été trouvé dans l'équipage du {self._name}."
+            )
+            return False
 
     # Fonction permettant de vérifier si l'équipage possède un pilote et un technicien pour décoller
 
     def check_preparation(self):
-        
+
         has_pilot = False
         has_technician = False
-        
+
         for member in self._crew:
             try:
                 if member._role.lower() == "pilote":
@@ -112,17 +125,22 @@ class Spaceship:
             print("Le vaisseau est prêt au décollage !")
             return True
         else:
-            manquants = []                              # Cette partie va permettre de savoir si il manque un technicien ou un pilote dans le vaisseau
+            manquants = (
+                []
+            )  # Cette partie va permettre de savoir si il manque un technicien ou un pilote dans le vaisseau
             if not has_pilot:
                 manquants.append("pilote")
             if not has_technician:
                 manquants.append("technicien")
-            print(f"Le Vaisseau {self._name} ne peut pas décoller. Il manque au moins un {' et un '.join(manquants)}.")
+            print(
+                f"Le Vaisseau {self._name} ne peut pas décoller. Il manque au moins un {' et un '.join(manquants)}."
+            )
             return False
 
-
     def display_crew(self):
-        print(f"\n--- Equipage du Vaisseau {self._name} (c'est un {self._shipType}) ---\n")
+        print(
+            f"\n--- Equipage du Vaisseau {self._name} (c'est un {self._shipType}) ---\n"
+        )
         if not self._crew:
             print("L'équipage est vide.")
             return
@@ -130,4 +148,6 @@ class Spaceship:
             try:
                 member.introduce_yourself()
             except AttributeError:
-                print(f"Erreur d'affichage : Le membre '{member._first_name}' ne possède pas de méthode d'affichage.")
+                print(
+                    f"Erreur d'affichage : Le membre '{member._first_name}' ne possède pas de méthode d'affichage."
+                )

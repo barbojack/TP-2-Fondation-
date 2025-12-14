@@ -1,5 +1,6 @@
 from classes.Mentalist import Mentalist
 
+
 class Fleet:
 
     def __init__(self, name, spaceships):
@@ -7,7 +8,9 @@ class Fleet:
         self.__name = name
 
     @property  # Début de la liste des getters : setters
-    def _name(self):  # Le @property est dû au double (__) pour rendre privées les informations
+    def _name(
+        self,
+    ):  # Le @property est dû au double (__) pour rendre privées les informations
         return self.__name
 
     @_name.setter
@@ -52,7 +55,7 @@ class Fleet:
         roles = {}  # Répartition des rôles
         for spaceship in self._spaceships:
             for member in spaceship._crew:
-                if hasattr(member, '_role'):            # Vérifie si le rôle existe
+                if hasattr(member, "_role"):  # Vérifie si le rôle existe
                     role = member._role
                     if role in roles:
                         roles[role] += 1
@@ -70,7 +73,9 @@ class Fleet:
 
         for spaceship in self._spaceships:
             for member in spaceship._crew:
-                if hasattr(member, '_experience'):                  # Vérifie si le membre possède de l'expérience et est donc un Operator
+                if hasattr(
+                    member, "_experience"
+                ):  # Vérifie si le membre possède de l'expérience et est donc un Operator
                     total_experience += member._experience
                     operators_count += 1
         if operators_count > 0:
