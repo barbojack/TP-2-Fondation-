@@ -4,11 +4,13 @@ from classes.Mentalist import Mentalist
 from classes.Spaceship import Spaceship
 from classes.Fleet import Fleet
 from typing import Dict, Any, List  
-import json
-import os
+import json                               # Import permettant de gérer les fichiers JSON
+import os                                 # Import permettant d'intéragir avec le système de fichiers
 
 
-# ========== CREATION DES MEMBRES ==========
+"""TEST INITIAUX DES DIFFERENTES COMMANDES
+
+========== CREATION DES MEMBRES INITIAUX ==========
 chris = Operator("Chris", "Chevalier", "homme", 33, "armurier")
 charif = Operator("Charif", "El Bakkali", "homme", 19, "homme de ménage")
 khalil = Operator("Khalil", "Serdoun", "homme", 19, "technicien")
@@ -76,7 +78,7 @@ hunter.check_preparation()
 
 # Statistiques
 sith.statistics()
-republic.statistics()
+republic.statistics()"""
 
 # ========== REGISTRES GLOBAUX ==========
 # Dictionnaires pour stocker tous les objets créés
@@ -92,7 +94,7 @@ def save_program_state():                          #Sauvegarde l'état complet d
     filename = input("Nom du fichier de sauvegarde (sans extension) : ").strip()
     if not filename:
         filename = "sauvegarde"
-    filename = f"{filename}.json"
+    filename = f"{filename}.json"              
     save_data = {        # Structure de données à sauvegarder
         "members": [],
         "vessels": [],
@@ -308,7 +310,7 @@ def create_member():                                #Crée un nouveau membre (Op
     if pseudo in MEMBERS_DICT:
         print("Ce pseudo existe déjà !")
         return None
-    prenom = input("Prénom : ")
+    prenom = input("Prénom : ")             # Demande les informations de base
     nom = input("Nom : ")
     genre = input("Genre : ")
     age = input("Âge : ")
@@ -316,13 +318,13 @@ def create_member():                                #Crée un nouveau membre (Op
     print("1. Opérateur")
     print("2. Mentaliste")
     choix = input("Votre choix (1 ou 2) : ")
-    if choix == "1":
+    if choix == "1":                                            # Création d'un Opérateur
         role = input("Rôle (pilote, technicien, etc.) : ")
         new_member = Operator(prenom, nom, genre, age, role)
         MEMBERS_DICT[pseudo] = new_member
         print(f"Opérateur {prenom} {nom} créé !")
         return new_member
-    elif choix == "2":
+    elif choix == "2":                                           # Création d'un Mentalist
         try:
             mana = int(input("Niveau de mana : "))
             new_member = Mentalist(prenom, nom, genre, age, mana)
